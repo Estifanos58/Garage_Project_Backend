@@ -27,3 +27,14 @@ export const LoginController = async (req,res) =>{
         })
     } 
 }
+
+export const verifyEmployee = async (req, res) =>{
+    try {
+        const {  } = req.body
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "Error Occured while verifyEmployee"
+        })
+    }
+}

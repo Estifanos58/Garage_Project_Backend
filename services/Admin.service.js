@@ -1,13 +1,14 @@
 import { User } from "../model/Employee.js"
 import bcrypt from "bcryptjs";
 import { generateJwtToken } from "../util/jwtToken.js";
+import { sendVerificationPassword } from "../util/emails.js";
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
         const existingUser = await User.findOne({email});
-        if(existingUser) return {
-            success: false,
-            message: "user with the given ID lready exist"
-        }
+        // if(existingUser) return {
+        //     success: false,
+        //     message: "user with the given ID lready exist"
+        // }
         // generated password
         const password = Math.floor(100000 + Math.random() * 600000).toString();
         // here we will send the password to the employee
@@ -26,6 +27,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
         });
 
         await user.save();
+        sendVerificationPassword(email,password,user.first_name, user.role)
 
         return {
             success: true,
@@ -36,6 +38,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             }
         }
 
+        
         // generateJwtToken(res,user._id,role,email);
 
     } catch (error) {
