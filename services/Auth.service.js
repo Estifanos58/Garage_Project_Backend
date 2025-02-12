@@ -1,4 +1,4 @@
-import { User } from "../model/Employee"
+import { User } from "../model/Employee.js"
 import bcrypt from "bcryptjs"
 
 export const LoginService = async (email, password)=> {

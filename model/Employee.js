@@ -23,7 +23,7 @@ export const userSchema = mongoose.Schema({
     email : {
         type: String,
         required: true,
-        unique
+        // uniqueb
     },
     password:{
         type: String,

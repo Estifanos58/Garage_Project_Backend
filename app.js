@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import {connect} from "./config/dbconnect.js";
 import cors from "cors";
 import dotenv from "dotenv";
-import route from './routes/Auth.route.js'
+import {route} from './routes/index.route.js'
 
 // .env configuration
 dotenv.config()
@@ -14,14 +14,15 @@ dotenv.config()
 const app = express();
 
 app.use(cors());
+app.use(express.json())
 app.use(cookieParser());
 const port = process.env.PORT || 5500
 
 // Routes
-app.use("/user",route)
+app.use("/v2",route)
 
 app.get("/", (req,res)=>{
-    res.send("Hello here")
+    res.send("Hello here is the backend")
 })
 
 app.listen(port, ()=>{

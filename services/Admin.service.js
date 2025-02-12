@@ -1,12 +1,12 @@
-import { User } from "../model/Employee"
+import { User } from "../model/Employee.js"
 import bcrypt from "bcryptjs";
-import { generateJwtToken } from "../util/jwtToken";
-export const AddEmployeeService = async (res,first_name,last_name,email,phone,role)=> {
+import { generateJwtToken } from "../util/jwtToken.js";
+export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
-        const existingUser = await User.findOne({email:email});
+        const existingUser = await User.findOne({email});
         if(existingUser) return {
             success: false,
-            message: "user with the given ID already exist"
+            message: "user with the given ID lready exist"
         }
         // generated password
         const password = Math.floor(100000 + Math.random() * 600000).toString();
@@ -41,7 +41,7 @@ export const AddEmployeeService = async (res,first_name,last_name,email,phone,ro
     } catch (error) {
         return {
             success: false,
-            message: "Error while Adding Employee"
+            message: "Error while Adding Employee In service"+ error 
         }
     }
  
