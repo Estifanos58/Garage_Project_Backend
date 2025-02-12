@@ -6,6 +6,7 @@ import {connect} from "./config/dbconnect.js";
 import cors from "cors";
 import dotenv from "dotenv";
 
+// .env configuration
 dotenv.config()
 
 
