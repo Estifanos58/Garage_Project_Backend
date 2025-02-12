@@ -1,13 +1,14 @@
 import { User } from "../model/Employee.js"
 import bcrypt from "bcryptjs"
+import {generateJwtToken} from "../util/jwtToken.js"
 
-export const LoginService = async (email, password)=> {
+export const LoginService = async (res,email, password)=> {
     try {
-        const foundUser = await User.findOne({email: email});
+        const foundUser = await User.findOne({email});
         if(!foundUser){
             return {
                 success: false,
-                message: "user not found"
+                message: "user no found"
             }
         }else{
             const pass = bcrypt.compare(foundUser.password, password);
@@ -16,6 +17,7 @@ export const LoginService = async (email, password)=> {
                 message: "Wrong password"
             }
 
+            generateJwtToken(res,foundUser._id, foundUser.role,email)
             return {
                 success: true,
                 message: foundUser,

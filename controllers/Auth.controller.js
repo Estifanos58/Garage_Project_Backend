@@ -11,8 +11,14 @@ export const LoginController = async (req,res) =>{
            })
         }
     
-        const response =   await LoginService(email, password);
-        return res.send(response);
+        const response =   await LoginService(res,email, password);
+        if(response.success){
+            return res.status(200).send(response);
+        }
+        else {
+            return res.status(400).send(response);
+        }
+       
 
     } catch (error) {
         return res.send({
