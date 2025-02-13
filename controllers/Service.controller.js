@@ -21,7 +21,7 @@ export const AddService = async (req,res)=> {
     }
 }
 
-export const editService_service = async (req,res) =>{
+export const editService = async (req,res) =>{
     try {
         const {userId, service_id, name, description, price} = req.body;
         if(!userId || !service_id){

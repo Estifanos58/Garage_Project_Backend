@@ -20,3 +20,22 @@ export const sendVerificationPassword = async (email, password, first_name,role)
         console.log("error Occured "+error)
     }
 }
+
+export const signUpVerificationCode = async (email, code)=>{
+  const recipients = [email];
+  try {
+    const response = await transport
+          .sendMail({
+            from: sender,
+            to: recipients,
+            subject: "Welcome to Abe Garage",
+            html: WELCOME_MESSAGE.replace("{password}",code),
+            category: "Account Verification",
+          })
+          .then(console.log, console.error);
+          console.log("Email sent to the user", response)
+          return response;
+  } catch (error) {
+    console.log("error Occured "+error)
+  }
+}

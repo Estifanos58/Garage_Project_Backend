@@ -1,5 +1,23 @@
 import { LoginService, verifyEmployeeService } from "../services/Auth.service.js";
 
+export const SignController = async (req, res) =>{
+    try {
+        const {first_name, last_name, email,password, phone} = req.body;
+        if(!first_name || !last_name || !email || !password || !phone){
+            return res.status(401).send({
+                success: false,
+                message: "All fields are needed"
+            })
+        } 
+
+        const response = await sign_service(res,first_name, last_name, email,password, phone) 
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: `Error happened in SignController ${error}`
+        })
+    }
+}
 
 export const LoginController = async (req,res) =>{
     try {
