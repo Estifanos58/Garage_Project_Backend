@@ -1,4 +1,4 @@
-import { User } from "../model/Employee.js"
+import { User } from "../model/User.js"
 import bcrypt from "bcryptjs"
 import {generateJwtToken} from "../util/jwtToken.js"
 import mongoose from "mongoose"

@@ -1,7 +1,8 @@
-import { User } from "../model/Employee.js"
+import { User } from "../model/User.js"
 import bcrypt from "bcryptjs";
 import { generateJwtToken } from "../util/jwtToken.js";
 import { sendVerificationPassword } from "../util/emails.js";
+
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
         const existingUser = await User.findOne({email});
@@ -37,9 +38,6 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
                 password : null
             }
         }
-
-        
-        // generateJwtToken(res,user._id,role,email);
 
     } catch (error) {
         return {
