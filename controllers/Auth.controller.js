@@ -1,4 +1,4 @@
-import { LoginService } from "../services/Auth.service.js";
+import { LoginService, verifyEmployeeService } from "../services/Auth.service.js";
 
 
 export const LoginController = async (req,res) =>{
@@ -30,7 +30,18 @@ export const LoginController = async (req,res) =>{
 
 export const verifyEmployee = async (req, res) =>{
     try {
-        const {  } = req.body
+        const {id,password} = req.body;
+        if(!id, !password){
+            return res.status(400).send({
+                success: false,
+                message: "All fields are not provided"
+            })
+        }
+        const response = await verifyEmployeeService(res, id, password);
+        if(!response.success){
+            return res.status(400).send(response)
+        }
+        return res.status(200).send(response);
     } catch (error) {
         res.status(400).send({
             success: false,
