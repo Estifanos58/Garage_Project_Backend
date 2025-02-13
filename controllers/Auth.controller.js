@@ -30,14 +30,14 @@ export const LoginController = async (req,res) =>{
 
 export const verifyEmployee = async (req, res) =>{
     try {
-        const {id,password} = req.body;
-        if(!id, !password){
+        const {id,old_password,new_password} = req.body;
+        if(!id, !old_password,!new_password){
             return res.status(400).send({
                 success: false,
                 message: "All fields are not provided"
             })
         }
-        const response = await verifyEmployeeService(res, id, password);
+        const response = await verifyEmployeeService(res, id, old_password, new_password);
         if(!response.success){
             return res.status(400).send(response)
         }
@@ -45,7 +45,7 @@ export const verifyEmployee = async (req, res) =>{
     } catch (error) {
         res.status(400).send({
             success: false,
-            message: "Error Occured while verifyEmployee"
+            message: "Error Occured while verifyEmployee "+error
         })
     }
 }

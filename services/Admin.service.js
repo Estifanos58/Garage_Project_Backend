@@ -18,7 +18,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             first_name,
             last_name,
             email,
-            verification_code: hashedPassword,
+            password: hashedPassword,
             verification_expires_at: Date.now() + 24 * 60 * 60 * 1000 ,
             phone,
             role,
