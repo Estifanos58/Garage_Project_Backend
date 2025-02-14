@@ -16,6 +16,14 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
         const password = Math.floor(100000 + Math.random() * 600000).toString();
         // here we will send the password to the employee
         const hashedPassword = await bcrypt.hash(password, 10);
+       
+        const response =  await sendVerificationPassword(email,password,user.first_name, user.role)
+        if(!response.success){
+            return {
+                success: false,
+                message: "Error while sending message please Check you Email again"
+            }
+        }
 
         const user = new User({
             first_name,
@@ -30,15 +38,14 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
         });
 
         await user.save();
-        sendVerificationPassword(email,password,user.first_name, user.role)
 
         return {
             success: true,
             message: "Employee Added",
-            user: {
-                ...user._doc,
-                password : null
-            }
+            // user: {
+            //     ...user._doc,
+            //     password : null
+            // }
         }
 
     } catch (error) {
@@ -50,6 +57,45 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
 
 }
 
+export const editEmployeeService = async (userId,id,first_name,last_name,email,phone,role) => {
+    try {
+        const admin = await User.findById(userId);
+        if(!admin) return {
+            success: false,
+            message: "No user found with the given Id"
+        }
+        if(admin.role !== "admin" && admin.role !== "manager") return {
+            success: false,
+            message: "You don't have the permition"
+        }
+        const user = await User.findById(id);
+        if(!user) {
+            return {
+                success: false,
+                message: "No user found with the given Id"
+            }
+        }
+
+        if(first_name) user.first_name = first_name;
+        if(last_name) user.last_name = last_name;
+        if(email) user.email = email;
+        if(phone) user.phone = phone;
+        if(role) user.role = role;
+
+        await user.save()
+
+        return {
+            success: true,
+            message: "Employee Edited succesfully"
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while Editing Employee In service"+ error 
+        }
+    }
+} 
+
 export const addCustomer_service = async (email,first_name,last_name,phone) => {
     try {
         const existingUser = await Customer.findOne({email});
@@ -58,7 +104,8 @@ export const addCustomer_service = async (email,first_name,last_name,phone) => {
             message: "User with this email already exists"
         }
         
-        const password = Math.floor(Math.random * 400000 +10000);
+        const password = Math.floor(100000 + Math.random() * 900000).toString();
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const response = await customerAddedPassword(email, password);
@@ -130,7 +177,7 @@ export const getEmployeeById_service = async (userId, employeeId) => {
                 message: "User Not found with the given Id"
             }
         }
-        if(admin.role !== "admin" || admin.role !== "manager"){
+        if(admin.role !== "admin" && admin.role !== "manager"){
             return {
                 success: false,
                 message: "You don't have the permission"

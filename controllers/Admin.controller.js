@@ -1,4 +1,4 @@
-import { AddEmployeeService, getAllEmployee_service } from "../services/Admin.service.js";
+import { AddEmployeeService, editEmployeeService, getAllEmployee_service } from "../services/Admin.service.js";
 export const AddEmployeeController = async (req, res)=>{
     try {
         const {first_name,last_name,email,phone,role} = req.body;
@@ -22,7 +22,30 @@ export const AddEmployeeController = async (req, res)=>{
         })
     }  
 }
+export const editEmployee_controller = async (req, res) =>{
+    try {
+        const {userId,id,first_name,last_name,email,phone,role} = req.body;
+        if(!userId || !id){
+            return res.status(400).send({
+                success: false,
+                message: "Some fields are necesery"
+            })
+        }
 
+        const response = await editEmployeeService(userId,id,first_name,last_name,email,phone,role);
+        if(response.success){
+            res.status(201).send(response)
+        } else {
+            res.status(402).send(response)
+        }
+
+    } catch (error) {
+        res.status(401).send({
+            success: false,
+            message: "Error occured While Adding customer"+ error
+        })
+    }
+}
 export const addCustomer_constroller = async (req, res) => {
     try {
         const {email, first_name, last_name, phone} = req.body;
