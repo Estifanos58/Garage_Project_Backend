@@ -1,4 +1,4 @@
-import { LoginService, verifyEmployeeService } from "../services/Auth.service.js";
+import { LoginService, verifyEmployeeService, sign_service } from "../services/Auth.service.js";
 
 export const SignController = async (req, res) =>{
     try {
@@ -11,6 +11,9 @@ export const SignController = async (req, res) =>{
         } 
 
         const response = await sign_service(res,first_name, last_name, email,password, phone) 
+        if(!response.success) return res.status(400).send(response);
+
+        res.status(200).send(response);
     } catch (error) {
         res.status(500).send({
             success: false,

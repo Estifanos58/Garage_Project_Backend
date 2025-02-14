@@ -6,6 +6,7 @@ import { Customer } from "../model/Customer.js";
 import {
   signUpVerificationCode,
 } from "../util/emails.js";
+// import { res } from "../util/emails.js";n
 
 export const LoginService = async (res, email, password) => {
   try {
@@ -123,10 +124,12 @@ export const sign_service = async (
     const hashedPassword = await bcrypt.hash(password, 10);
     const verificationCode = Math.floor(Math.random() * 400000 + 120000);
     const response = await signUpVerificationCode(email, verificationCode);
+    // // console.log("Response "+response.success)
+    // console.log("Sign email "+ res?.success);
     if (!response.success) {
       return {
         success: false,
-        message: "Error while sending message please cheack your email",
+        message: "Error  while sending message please cheack your email",
       };
     }
     const user = new Customer({
@@ -138,13 +141,17 @@ export const sign_service = async (
       verification_code: verificationCode,
       verification_expires_at: Date.now() + 24 * 60 * 60 * 1000,
     });
+
     await user.save();
+    
+    const role = null;
+    generateJwtToken(res, user._id, role, email);
 
     return { success: true, message: "Customer added" };
   } catch (error) {
     return {
       success: false,
-      message: `Error happened in sign_Service : ${error.message}`,
+      message: `Error happened in sign_Service : ${error}`,
     };
   }
 };

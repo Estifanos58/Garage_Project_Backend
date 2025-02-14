@@ -1,5 +1,5 @@
-import { User } from "../model/User";
-import {addService_service, editService_service} from "../services/Service.service"
+import { User } from "../model/User.js";
+import {addService_service, editService_service} from "../services/Service.service.js"
 export const AddService = async (req,res)=> {
     try {
         const {userId, name, description, price} = req.body;
