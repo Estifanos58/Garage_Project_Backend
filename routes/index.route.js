@@ -1,6 +1,6 @@
 import express from "express";
 import { LoginController , SignController, verifyEmployee} from "../controllers/Auth.controller.js";
-import { AddEmployeeController, getAllEmployee_controller, getEmployeeById_controller } from "../controllers/Admin.controller.js";
+import { addCustomer_constroller, AddEmployeeController, getAllEmployee_controller, getEmployeeById_controller } from "../controllers/Admin.controller.js";
 import { AddService, editService } from "../controllers/Service.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
@@ -16,6 +16,7 @@ route.post("/admin/add-employee",verifyToken,AddEmployeeController);
 route.post("/admin/add-service",verifyToken, AddService);
 route.post("/admin/edit-service",verifyToken,editService); 
 route.post("/admin/get-employee-by-id",verifyToken,getEmployeeById_controller);
+route.post("/admin/add-customer", verifyToken, addCustomer_constroller);
 route.get("/admin/get-all-employees",verifyToken, getAllEmployee_controller);
 
 

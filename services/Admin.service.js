@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateJwtToken } from "../util/jwtToken.js";
 import { sendVerificationPassword } from "../util/emails.js";
 import {Service} from "../model/Service.js"
+import { Customer } from "../model/Customer.js";
 
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
@@ -46,6 +47,40 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             message: "Error while Adding Employee In service"+ error 
         }
     }
+
+}
+
+export const addCustomer_service = async (email,first_name,last_name,phone) => {
+    try {
+        const existingUser = await Customer.findOne({email});
+        if(existingUser) return { 
+            success: false,
+            message: "User with this email already exists"
+        }
+        
+        const password = Math.floor(Math.random * 400000 +10000);
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const response = await customerAddedPassword(email, password);
+        if(!response.success) return {
+            success: false,
+            message: "Error while sending message check your Email"
+        }
+        const user = new Customer({first_name,last_name,email,password: hashedPassword,phone });
+    
+        await user.save();
+
+        return {
+            success: true,
+            message: "Customer Added"
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while Adding Customer In service"+ error 
+        }
+    }
+  
 
 }
 
@@ -122,3 +157,11 @@ export const getEmployeeById_service = async (userId, employeeId) => {
         })
     }
 }
+
+
+// manager 
+// customer garage email, phone, first_name, last_name
+
+// Abebe email = abebe@gmail.com 
+                // bajaj Force
+                // minibus
