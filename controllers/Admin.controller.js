@@ -25,17 +25,47 @@ export const AddEmployeeController = async (req, res)=>{
 }
 
 export const getAllEmployee_controller = async (req, res) => {
-    const {userId} = req.body;
-    if(!userId){
-        return res.status(400).send({
+    try {
+        const {userId} = req.body;
+        if(!userId){
+            return res.status(400).send({
+                success: false,
+                message: "UserId required"
+            })
+        }
+    
+        const response  = await getAllEmployee_service(userId);
+        if(!response.success){
+            return res.status(401).send(response)
+        }
+        return res.status(200).send(response)
+    } catch (error) {
+        return res.status(500).send({
             success: false,
-            message: "UserId required"
+            message: "Error occured in getAllEmployee_controller "+ error
         })
     }
+  
+}
 
-    const response  = await getAllEmployee_service(userId);
-    if(!response.success){
-        return res.status(401).send(response)
+export const getEmployeeById_controller = async (req, res) => {
+    try {
+        const {userId, employeeId} = req.body;
+        if(!userId || !employeeId) {
+            return res.status(400).send({
+                success: false,
+                message: "All fields are required"
+            })
+        }
+        const response = await getEmployeeById_service(userId, employeeId);
+        if(!response.success){
+            return res.status(401).send(response)
+        }
+        return res.status(200).send(response)
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: "Error occured in getEmployeeById_controller "+ error
+        })
     }
-    return res.status(200).send(response)
 }

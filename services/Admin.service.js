@@ -85,3 +85,40 @@ export const getAllEmployee_service = async (userId) => {
     }
         
 }
+
+export const getEmployeeById_service = async (userId, employeeId) => {
+    try {
+        const admin = await User.findById(userId);
+        if(!admin){
+            return {
+                success: false,
+                message: "User Not found with the given Id"
+            }
+        }
+        if(admin.role !== "admin" || admin.role !== "manager"){
+            return {
+                success: false,
+                message: "You don't have the permission"
+            }
+        }
+        const user = await User.findById(employeeId);
+        if(!user){
+            return {
+                success: false,
+                message: "User Not found with the given Id"
+            }
+        }
+
+        return {
+            success: true,
+            message: "User data found",
+            data: user
+        }
+
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: "Error occured in getEmployeeById_service "+ error
+        })
+    }
+}
