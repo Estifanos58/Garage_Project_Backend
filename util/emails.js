@@ -1,6 +1,6 @@
 import { transport } from "../config/mailtrap.config.js";
 import { sender } from "../config/mailtrap.config.js";
-import { WELCOME_MESSAGE } from "../config/mailtrap.template.js";
+import { WELCOME_MESSAGE, PASSWORD_VERIFICATION } from "../config/mailtrap.template.js";
 
 export const sendVerificationPassword = async (email, password, first_name, role) => {
     const recipients = [email];
@@ -9,7 +9,7 @@ export const sendVerificationPassword = async (email, password, first_name, role
             from: sender,
             to: recipients,
             subject: "Welcome to Abe Garage",
-            html: WELCOME_MESSAGE.replace("{password}", password),
+            html: PASSWORD_VERIFICATION.replace("{password}", password),
             category: "Password change",
         });
 

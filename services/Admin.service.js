@@ -64,7 +64,7 @@ export const getAllEmployee_service = async (userId) => {
                 message: "You don't have the permission"
             }
         }
-        const employees = await User.find({});
+        const employees = await User.find({ _id: { $ne: userId } }, { password: 0 });
 
         if(employees.length == 0){
             return {
