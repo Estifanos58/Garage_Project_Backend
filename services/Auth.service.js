@@ -125,7 +125,6 @@ export const sign_service = async (
     const verificationCode = Math.floor(Math.random() * 400000 + 120000);
     const response = await signUpVerificationCode(email, verificationCode);
     // // console.log("Response "+response.success)
-    // console.log("Sign email "+ res?.success);
     if (!response.success) {
       return {
         success: false,

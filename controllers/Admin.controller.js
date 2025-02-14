@@ -1,4 +1,4 @@
-import { AddEmployeeService } from "../services/Admin.service.js";
+import { AddEmployeeService, getAllEmployee_service } from "../services/Admin.service.js";
 export const AddEmployeeController = async (req, res)=>{
     try {
         // console.log(req)
@@ -21,6 +21,21 @@ export const AddEmployeeController = async (req, res)=>{
             success: false,
             message: "Error occured While Ading Employee"+ error
         })
+    }  
+}
+
+export const getAllEmployee_controller = async (req, res) => {
+    const {userId} = req.body;
+    if(!userId){
+        return res.status(400).send({
+            success: false,
+            message: "UserId required"
+        })
     }
-   
+
+    const response  = await getAllEmployee_service(userId);
+    if(!response.success){
+        return res.status(401).send(response)
+    }
+    return res.status(200).send(response)
 }
