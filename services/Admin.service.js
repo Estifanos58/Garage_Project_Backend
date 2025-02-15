@@ -5,7 +5,7 @@ import { sendVerificationPassword } from "../util/emails.js";
 import {Service} from "../model/Service.js"
 import { Customer } from "../model/Customer.js";
 
-const verifyAdmin = async (role) =>{
+export const verifyAdmin = async (role) =>{
    if(role !== "admin" || role !== "manager") return false;
    return true;
 }

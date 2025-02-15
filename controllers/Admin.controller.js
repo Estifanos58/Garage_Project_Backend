@@ -1,95 +1,74 @@
-import { AddEmployeeService, editEmployeeService, getAllEmployee_service } from "../services/Admin.service.js";
+import { AddEmployeeService, deleteEmployee_service, editEmployeeService, getAllEmployee_service } from "../services/Admin.service.js";
+import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
+
 export const AddEmployeeController = async (req, res)=>{
     try {
         const {first_name,last_name,email,phone,role} = req.body;
         if(!first_name,!last_name,!email,!phone,!role){
-            return res.status(401).send({
-                success: false,
-                message: "All feilds should b efilled"
-            })
+            fieldsNotFilled(res);
         }
     
         const response = await AddEmployeeService(first_name,last_name,email,phone,role);
-        if(response.success){
-            res.status(201).send(response)
-        } else {
-            res.status(402).send(response)
-        }
+        
+        sendResponse(response,res);
     } catch (error) {
-        res.status(401).send({
-            success: false,
-            message: "Error occured While Ading Employee"+ error
-        })
+       errorInServer("addEmployeeController", error, res);
     }  
 }
 export const editEmployee_controller = async (req, res) =>{
     try {
         const {userId,id,first_name,last_name,email,phone,role} = req.body;
         if(!userId || !id){
-            return res.status(400).send({
-                success: false,
-                message: "Some fields are necesery"
-            })
+            fieldsNotFilled(res);
         }
 
         const response = await editEmployeeService(userId,id,first_name,last_name,email,phone,role);
-        if(response.success){
-            res.status(201).send(response)
-        } else {
-            res.status(402).send(response)
-        }
+        
+        sendResponse(response,res);
 
     } catch (error) {
-        res.status(401).send({
-            success: false,
-            message: "Error occured While Adding customer"+ error
-        })
+        errorInServer("editEmployeeController",error,res);
     }
 }
+export const deleteEmployee_controller = async (req, res) =>{
+    try {
+        const {role, id} = req.body;
+        if(!role || !id) {
+            fieldsNotFilled(res);
+        }
+        const response = await deleteEmployee_service(role, id);
+        sendResponse(response,res);
+
+    } catch (error) {
+       errorInServer("deleteEmployeeContoller",error,res);
+    }
+}
+
 export const addCustomer_constroller = async (req, res) => {
     try {
         const {email, first_name, last_name, phone} = req.body;
         if(!email || !first_name || !last_name || !phone) {
-            return res.status(400).send({
-                success: false,
-                message: "All fields are required"
-            })
+            fieldsNotFilled(res);
         }
 
         const response = await addCustomer_service(email,first_name,last_name,phone);
-        if(response.success){
-            res.status(201).send(response)
-        } else {
-            res.status(402).send(response)
-        }
+        sendResponse(response,res);
 
     } catch (error) {
-        res.status(401).send({
-            success: false,
-            message: "Error occured While Adding customer"+ error
-        })
+       errorInServer("addCustomerController",error,res);
     }
 }
 export const getAllEmployee_controller = async (req, res) => {
     try {
         const {userId} = req.body;
         if(!userId){
-            return res.status(400).send({
-                success: false,
-                message: "UserId required"
-            })
+           fieldsNotFilled(res);
         }
     
         const response  = await getAllEmployee_service(userId);
-        if(!response.success){
-            return res.status(401).send(response)
-        }
-        return res.status(200).send(response)
+        sendResponse(response,res);
     } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: "Error occured in getAllEmployee_controller "+ error
-        })
+       errorInServer("getAllEmployeeController",error,res);
     }
   
 }
@@ -98,20 +77,12 @@ export const getEmployeeById_controller = async (req, res) => {
     try {
         const {userId, employeeId} = req.body;
         if(!userId || !employeeId) {
-            return res.status(400).send({
-                success: false,
-                message: "All fields are required"
-            })
+            fieldsNotFilled(res)
         }
         const response = await getEmployeeById_service(userId, employeeId);
-        if(!response.success){
-            return res.status(401).send(response)
-        }
-        return res.status(200).send(response)
+       
+        sendResponse(response,res);
     } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: "Error occured in getEmployeeById_controller "+ error
-        })
+       errorInServer("getEmployeeByIdController",error,res);
     }
 }
