@@ -13,12 +13,13 @@ route.post("/user/verify-password", verifyEmployee);
 
 // Admin Controllers
 route.post("/admin/add-employee",verifyToken,AddEmployeeController);
+route.post("/admin/edit-employee",verifyToken,editEmployee_controller);
+
 route.post("/admin/add-service",verifyToken, AddService);
 route.post("/admin/edit-service",verifyToken,editService); 
+route.get("/admin/get-all-employees",verifyToken, getAllEmployee_controller);
 route.post("/admin/get-employee-by-id",verifyToken,getEmployeeById_controller);
 route.post("/admin/add-customer", verifyToken, addCustomer_constroller);
-route.post("/admin/edit-employee",verifyToken,editEmployee_controller);
-route.get("/admin/get-all-employees",verifyToken, getAllEmployee_controller);
 
 
 
