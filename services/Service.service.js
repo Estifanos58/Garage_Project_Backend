@@ -1,56 +1,43 @@
 import { User } from "../model/User.js";
 import { Service } from "../model/Service.js";
 import { verifyAdmin } from "./Admin.service.js";
+import { errorService } from "../util/response.js";
 
-export const addService_service = async (
-  role,
-  userId,
-  name,
-  description,
-  price
-) => {
+export const addService_service = async (role,userId,name,description,price) => {
   try {
-    if (verifyAdmin(role)) {
-      const user = await User.findById(userId);
-      if (!user)
-        return { success: false, message: "No user found by the given ID" };
+      if (verifyAdmin(role)) {
+        const user = await User.findById(userId);
+        if (!user){
+          return { success: false, message: "No user found by the given ID" };
+        }
 
-      if (await Service.findOne({ name })) {
+        if (await Service.findOne({ name })) {
+          return {
+            success: false,
+            message: "Service with the given name already exists",
+          };
+        }
+
+        const service = new Service({
+          name,
+          description,
+          price,
+          added_by: user._id,
+        });
+        await service.save();
+
+        return { success: true, message: "Service added successfully." };
+      } else {
         return {
           success: false,
-          message: "Service with the given name already exists",
+          message: "You are not Authorized",
         };
       }
-
-      const service = new Service({
-        name,
-        description,
-        price,
-        added_by: user._id,
-      });
-      await service.save();
-
-      return { success: true, message: "Service added successfully." };
-    } else {
-      return {
-        success: false,
-        message: "You are not Authorized",
-      };
-    }
-  } catch (error) {
-    console.error("Error in addService:", error);
-    return { success: false, message: "Error occurred while adding service." };
+  } catch(error) {
+   errorService("addService_service", error);
   }
-};
-
-export const editService_service = async (
-  role,
-  userId,
-  serviceId,
-  name,
-  description,
-  price
-) => {
+}
+export const editService_service = async (role,userId,serviceId,name,description,price) => {
   try {
     if(verifyAdmin(role)) {
         const user = await User.findById(userId);
@@ -67,7 +54,7 @@ export const editService_service = async (
     
         await service.save();
         return { success: true, message: "Service updated successfully." };
-    } else{
+    } else {
         return {
             success: false,
             message: "You are not Authorized"
@@ -75,8 +62,7 @@ export const editService_service = async (
     }
     
   } catch (error) {
-    console.error("Error in editService:", error);
-    return { success: false, message: "Error occurred while editing service." };
+   errorService("editService_service", error);
   }
 };
 
@@ -99,9 +85,27 @@ export const deleteService_service = async(role,serviceId) => {
             }
         }
     } catch (error) {
-        return {
-            success: false,
-            message: "Error occured in deleteService_Service "+error
-        }
+       errorService("deleteService_service", error);
     }
+}
+
+
+export const getAllService_service = async() => {
+  try {
+    const services = await Service.find({});
+    if(!services.length){
+      return {
+        success: false,
+        message: "No services found"
+      }
+    }
+
+    return {
+      success: true,
+      message: "Service Get sucessfully",
+      data: services
+    }
+  } catch (error) {
+    errorService("getAllService_service",error);
+  }
 }

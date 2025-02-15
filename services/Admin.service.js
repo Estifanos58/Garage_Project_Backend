@@ -130,50 +130,6 @@ export const deleteEmployee_service = async (role,id) =>{
         }
     }
 }
-
-export const addCustomer_service = async (role,email,first_name,last_name,phone) => {
-    try {
-        if(verifyAdmin(role)){
-            const existingUser = await Customer.findOne({email});
-            if(existingUser) return { 
-                success: false,
-                message: "User with this email already exists"
-            }
-            
-            const password = Math.floor(100000 + Math.random() * 900000).toString();
-
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const response = await customerAddedPassword(email, password);
-            if(!response.success) return {
-                success: false,
-                message: "Error while sending message check your Email"
-            }
-            const user = new Customer({first_name,last_name,email,password: hashedPassword,phone });
-        
-            await user.save();
-
-            return {
-                success: true,
-                message: "Customer Added"
-            }
-        }else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-        }
-        
-    } catch (error) {
-        return {
-            success: false,
-            message: "Error while Adding Customer In service"+ error 
-        }
-    }
-  
-
-}
-
 export const getAllEmployee_service = async (role,userId) => {
     try {
        if(verifyAdmin(role)){
@@ -236,6 +192,51 @@ export const getEmployeeById_service = async (role, employeeId) => {
         })
     }
 }
+
+
+export const addCustomer_service = async (role,email,first_name,last_name,phone) => {
+    try {
+        if(verifyAdmin(role)){
+            const existingUser = await Customer.findOne({email});
+            if(existingUser) return { 
+                success: false,
+                message: "User with this email already exists"
+            }
+            
+            const password = Math.floor(100000 + Math.random() * 900000).toString();
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            const response = await customerAddedPassword(email, password);
+            if(!response.success) return {
+                success: false,
+                message: "Error while sending message check your Email"
+            }
+            const user = new Customer({first_name,last_name,email,password: hashedPassword,phone });
+        
+            await user.save();
+
+            return {
+                success: true,
+                message: "Customer Added"
+            }
+        }else{
+            return {
+                success: false,
+                message: "You are not Authorized"
+            }
+        }
+        
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while Adding Customer In service"+ error 
+        }
+    }
+  
+
+}
+
 
 
 

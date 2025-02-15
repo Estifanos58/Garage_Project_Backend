@@ -1,5 +1,5 @@
 import { deleteEmployee_service } from "../services/Admin.service.js";
-import {addService_service, editService_service} from "../services/Service.service.js"
+import {addService_service, editService_service, getAllService_service} from "../services/Service.service.js"
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 export const AddService = async (req,res)=> {
     try {
@@ -26,6 +26,15 @@ export const editService = async (req,res) =>{
         sendResponse(response,res);
     } catch (error) {
         errorInServer("editService",error,res);
+    }
+}
+
+export const getAllService_controller = async (req, res) => {
+    try {
+        const response = await getAllService_service();
+        sendResponse(response,res);
+    } catch (error) {
+        errorInServer("getAllService_controller",error,res);
     }
 }
 

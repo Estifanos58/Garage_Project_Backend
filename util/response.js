@@ -19,3 +19,11 @@ export const sendResponse = (response,res) => {
     }
     return res.status(200).send(response)
 }
+
+export const errorService = (service, error) =>{
+    console.log(`Error in ${service}:- ${error} `)
+    return {
+        success: false,
+        message: `Error occured in ${service}`
+    }
+}
