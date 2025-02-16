@@ -1,8 +1,6 @@
 import { User } from "../model/User.js"
 import bcrypt from "bcryptjs";
-import { generateJwtToken } from "../util/jwtToken.js";
 import { sendVerificationPassword } from "../util/emails.js";
-import {Service} from "../model/Service.js"
 import { Customer } from "../model/Customer.js";
 
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
@@ -51,7 +49,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
 
 }
 
-export const editEmployeeService = async (role,id,first_name,last_name,email,phone,role) => {
+export const editEmployeeService = async (id,first_name,last_name,email,phone,role) => {
     try {
             const user = await User.findById(id);
             if(!user) {
@@ -82,7 +80,7 @@ export const editEmployeeService = async (role,id,first_name,last_name,email,pho
     }
 } 
 
-export const deleteEmployee_service = async (role,id) =>{
+export const deleteEmployee_service = async (id) =>{
     try {
             const user = await User.findAndDelete({_id:id});
             if(!user) return {
@@ -101,7 +99,7 @@ export const deleteEmployee_service = async (role,id) =>{
         }
     }
 }
-export const getAllEmployee_service = async (role,userId) => {
+export const getAllEmployee_service = async (userId) => {
     try {
             const employees = await User.find({ _id: { $ne: userId } }, { password: 0 });
 
@@ -125,7 +123,7 @@ export const getAllEmployee_service = async (role,userId) => {
         
 }
 
-export const getEmployeeById_service = async (role, employeeId) => {
+export const getEmployeeById_service = async (employeeId) => {
     try {
             const user = await User.findById(employeeId);
             if(!user){
@@ -150,7 +148,7 @@ export const getEmployeeById_service = async (role, employeeId) => {
 }
 
 
-export const addCustomer_service = async (role,email,first_name,last_name,phone) => {
+export const addCustomer_service = async (email,first_name,last_name,phone) => {
     try {
             const existingUser = await Customer.findOne({email});
             if(existingUser) return { 
@@ -186,6 +184,50 @@ export const addCustomer_service = async (role,email,first_name,last_name,phone)
 
 }
 
+export const getAllCustomer_service = async () =>{
+    try {
+        const customers = await Customer.find({password: 0}, {added_date: 0},{reset_password_token:0 },{reset_password_expires_at_token: 0}, {verification_code: 0},{verification_expires_at: 0}, {hashed_link: 0});
+        if(customers.length === 0){
+            return {
+                success: false,
+                message: "No customers found"
+            }
+        }
+        return {
+            success: true,
+            message: "Customers Found successfully",
+            data: customers
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while Get All Customer In service: "+ error 
+        }
+    }
+}
+
+export const getCustomerById_service = async (id)=>{
+    try {
+        const user = await Customer.findOne({_id:id}, {password: 0}, {added_date: 0},{reset_password_token:0 },{reset_password_expires_at_token: 0}, {verification_code: 0},{verification_expires_at: 0}, {hashed_link: 0});
+        if(!user){
+            return {
+                success: false,
+                message: "Customer Not found with the given ID"
+            }
+        }
+
+        return {
+            success: true,
+            message: "Customer With the given Id found",
+            data: user
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while GETING EmployeeByID In service "+error
+        }
+    }
+}
 
 
 

@@ -1,11 +1,9 @@
 import { User } from "../model/User.js";
 import { Service } from "../model/Service.js";
-import { verifyAdmin } from "./Admin.service.js";
 import { errorService } from "../util/response.js";
 
-export const addService_service = async (role,userId,name,description,price) => {
+export const addService_service = async (userId,name,description,price) => {
   try {
-      if (verifyAdmin(role)) {
         const user = await User.findById(userId);
         if (!user){
           return { success: false, message: "No user found by the given ID" };
@@ -27,19 +25,12 @@ export const addService_service = async (role,userId,name,description,price) => 
         await service.save();
 
         return { success: true, message: "Service added successfully." };
-      } else {
-        return {
-          success: false,
-          message: "You are not Authorized",
-        };
-      }
   } catch(error) {
    errorService("addService_service", error);
   }
 }
-export const editService_service = async (role,userId,serviceId,name,description,price) => {
+export const editService_service = async (userId,serviceId,name,description,price) => {
   try {
-    if(verifyAdmin(role)) {
         const user = await User.findById(userId);
         if (!user)
           return { success: false, message: "No user found with the given ID" };
@@ -54,21 +45,14 @@ export const editService_service = async (role,userId,serviceId,name,description
     
         await service.save();
         return { success: true, message: "Service updated successfully." };
-    } else {
-        return {
-            success: false,
-            message: "You are not Authorized"
-        }
-    }
     
   } catch (error) {
    errorService("editService_service", error);
   }
 };
 
-export const deleteService_service = async(role,serviceId) => {
+export const deleteService_service = async(serviceId) => {
     try {
-        if(verifyAdmin(role)){
             const service = await Service.findByIdAndDelete(serviceId);
             if(!service) return {
                 success: false,
@@ -78,12 +62,6 @@ export const deleteService_service = async(role,serviceId) => {
                 success: true,
                 message: "Service Deleted successfully"
             }
-        } else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-        }
     } catch (error) {
        errorService("deleteService_service", error);
     }

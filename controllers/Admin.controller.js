@@ -44,20 +44,6 @@ export const deleteEmployee_controller = async (req, res) =>{
     }
 }
 
-export const addCustomer_constroller = async (req, res) => {
-    try {
-        const {email, first_name, last_name, phone} = req.body;
-        if(!email || !first_name || !last_name || !phone) {
-            fieldsNotFilled(res);
-        }
-
-        const response = await addCustomer_service(email,first_name,last_name,phone);
-        sendResponse(response,res);
-
-    } catch (error) {
-       errorInServer("addCustomerController",error,res);
-    }
-}
 export const getAllEmployee_controller = async (req, res) => {
     try {
         const {userId} = req.body;
@@ -84,5 +70,43 @@ export const getEmployeeById_controller = async (req, res) => {
         sendResponse(response,res);
     } catch (error) {
        errorInServer("getEmployeeByIdController",error,res);
+    }
+}
+
+export const addCustomer_constroller = async (req, res) => {
+    try {
+        const {email, first_name, last_name, phone} = req.body;
+        if(!email || !first_name || !last_name || !phone) {
+            fieldsNotFilled(res);
+        }
+
+        const response = await addCustomer_service(email,first_name,last_name,phone);
+        sendResponse(response,res);
+
+    } catch (error) {
+       errorInServer("addCustomerController",error,res);
+    }
+}
+
+export const getAllCustomer_controller = async (req, res)=> {
+    try {
+        const response = await getAllCustomer_service();
+        sendResponse(response, res);
+    } catch (error) {
+        errorInServer("getAllCustomer_controller", error,res);
+    }
+}
+
+export const getCustomerById_controller = async (req, res)=> {
+    try {
+        const {id} = req.body;
+        if(!id) {
+            fieldsNotFilled(res)
+        }
+
+        const response = await getCustomerById_service(id);
+        sendResponse(response, res);
+    } catch (error) {
+        errorInServer("GetCustomerById_controller", error, res);
     }
 }
