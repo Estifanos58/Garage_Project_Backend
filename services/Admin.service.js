@@ -5,14 +5,8 @@ import { sendVerificationPassword } from "../util/emails.js";
 import {Service} from "../model/Service.js"
 import { Customer } from "../model/Customer.js";
 
-export const verifyAdmin = async (role) =>{
-   if(role !== "admin" || role !== "manager") return false;
-   return true;
-}
-
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
-        if(verifyAdmin(role)){
             // const existingUser = await User.findOne({email});
             // if(existingUser) return {
             //     success: false,
@@ -48,14 +42,6 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
                 success: true,
                 message: "Employee Added",
             }
-        }else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-        }
-        
-
     } catch (error) {
         return {
             success: false,
@@ -67,7 +53,6 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
 
 export const editEmployeeService = async (role,id,first_name,last_name,email,phone,role) => {
     try {
-        if(verifyAdmin(role)){
             const user = await User.findById(id);
             if(!user) {
                 return {
@@ -88,12 +73,6 @@ export const editEmployeeService = async (role,id,first_name,last_name,email,pho
                 success: true,
                 message: "Employee Edited succesfully"
             }
-        }else {
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-        }
        
     } catch (error) {
         return {
@@ -105,7 +84,6 @@ export const editEmployeeService = async (role,id,first_name,last_name,email,pho
 
 export const deleteEmployee_service = async (role,id) =>{
     try {
-        if(verifyAdmin(role)){
             const user = await User.findAndDelete({_id:id});
             if(!user) return {
                 success: false,
@@ -116,13 +94,6 @@ export const deleteEmployee_service = async (role,id) =>{
                 success: true,
                 message: "User deleted Successfully"
             }
-
-        }else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-        }
     } catch (error) {
         return {
             success: false,
@@ -132,7 +103,6 @@ export const deleteEmployee_service = async (role,id) =>{
 }
 export const getAllEmployee_service = async (role,userId) => {
     try {
-       if(verifyAdmin(role)){
             const employees = await User.find({ _id: { $ne: userId } }, { password: 0 });
 
             if(employees.length == 0){
@@ -146,13 +116,6 @@ export const getAllEmployee_service = async (role,userId) => {
                 message: "All employees found",
                 data: employees
             }
-       }else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-       }
-       
     } catch (error) {
         return {
             success: false,
@@ -164,7 +127,6 @@ export const getAllEmployee_service = async (role,userId) => {
 
 export const getEmployeeById_service = async (role, employeeId) => {
     try {
-       if(verifyAdmin(role)){
             const user = await User.findById(employeeId);
             if(!user){
                 return {
@@ -178,12 +140,6 @@ export const getEmployeeById_service = async (role, employeeId) => {
                 message: "User data found",
                 data: user
             }
-       } else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-       }
 
     } catch (error) {
         return res.status(500).send({
@@ -196,7 +152,6 @@ export const getEmployeeById_service = async (role, employeeId) => {
 
 export const addCustomer_service = async (role,email,first_name,last_name,phone) => {
     try {
-        if(verifyAdmin(role)){
             const existingUser = await Customer.findOne({email});
             if(existingUser) return { 
                 success: false,
@@ -220,12 +175,6 @@ export const addCustomer_service = async (role,email,first_name,last_name,phone)
                 success: true,
                 message: "Customer Added"
             }
-        }else{
-            return {
-                success: false,
-                message: "You are not Authorized"
-            }
-        }
         
     } catch (error) {
         return {

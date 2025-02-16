@@ -3,6 +3,7 @@ import { LoginController , SignController, verifyEmployee} from "../controllers/
 import { addCustomer_constroller, AddEmployeeController, deleteEmployee_controller, editEmployee_controller, getAllEmployee_controller, getEmployeeById_controller } from "../controllers/Admin.controller.js";
 import { AddService, editService, getAllService_controller } from "../controllers/Service.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
+import { Autherize } from "../middleware/Autherize.js";
 
 export const route = express.Router();
 
@@ -14,11 +15,11 @@ route.get("/get-all-service",getAllService_controller);
 
 // Admin Controllers
     // Admin Employee Controller
-route.post("/admin/add-employee",verifyToken,AddEmployeeController);
-route.post("/admin/edit-employee",verifyToken,editEmployee_controller);
-route.post("/admin/delete-employee",verifyToken, deleteEmployee_controller);
-route.get("/admin/get-all-employees",verifyToken, getAllEmployee_controller);
-route.post("/admin/get-employee-by-id",verifyToken,getEmployeeById_controller);
+route.post("/admin/add-employee",verifyToken,Autherize,AddEmployeeController);
+route.post("/admin/edit-employee",verifyToken,Autherize,editEmployee_controller);
+route.post("/admin/delete-employee",verifyToken,Autherize,deleteEmployee_controller);
+route.get("/admin/get-all-employees",verifyToken,Autherize,getAllEmployee_controller);
+route.post("/admin/get-employee-by-id",verifyToken,Autherize,getEmployeeById_controller);
 
     // Admin Service Controller
 route.post("/admin/add-service",verifyToken, AddService);
