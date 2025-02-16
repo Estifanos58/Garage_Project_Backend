@@ -2,6 +2,7 @@ import { User } from "../model/User.js"
 import bcrypt from "bcryptjs";
 import { sendVerificationPassword } from "../util/emails.js";
 import { Customer } from "../model/Customer.js";
+import { model } from "mongoose";
 
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
@@ -99,6 +100,7 @@ export const deleteEmployee_service = async (id) =>{
         }
     }
 }
+ 
 export const getAllEmployee_service = async (userId) => {
     try {
             const employees = await User.find({ _id: { $ne: userId } }, { password: 0 });
@@ -146,7 +148,6 @@ export const getEmployeeById_service = async (employeeId) => {
         })
     }
 }
-
 
 export const addCustomer_service = async (email,first_name,last_name,phone) => {
     try {
