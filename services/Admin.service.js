@@ -229,5 +229,27 @@ export const getCustomerById_service = async (id)=>{
     }
 }
 
+export const deleteCustomer_service = async (customer_id) => {
+    try {
+        const foundCustomer = await Customer.findOneAndDelete({_id: customer_id});
+        if(!foundCustomer){
+            return {
+                success: false,
+                message: "Customer Not found with the given Id"
+            }
+        }
+
+        return {
+            success: true,
+            message: "Customer Deleted!"
+        }
+
+    } catch (error) {
+        return{
+            success: false,
+            message: "Error while Deleting Customer in Service "+ error
+        }
+    }
+} 
 
 

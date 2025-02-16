@@ -110,3 +110,16 @@ export const getCustomerById_controller = async (req, res)=> {
         errorInServer("GetCustomerById_controller", error, res);
     }
 }
+
+export const deleteCustomer_controller = async (customer_id) =>{
+    try {
+        if(!customer_id){
+            fieldsNotFilled(res);
+        }
+        const response = await deleteCustomer_service(customer_id);
+
+        sendResponse(response, res);
+    } catch (error) {
+        errorInServer("deleteCustomer_controller",error, res);
+    }
+}
