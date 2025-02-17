@@ -1,4 +1,4 @@
-import { addVehicle_service, editVehicle_service } from "../services/Vehicle.service";
+import { addVehicle_service, editVehicle_service, getAllVehicle_service } from "../services/Vehicle.service";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response";
 
 export const addVehicle_controller = async (req, res) => {
@@ -28,5 +28,19 @@ export const editVehicle_controller = async (req,res) => {
         sendResponse(response, res);    
     } catch (error) {
         errorInServer("editVehicle_controller", error, res);
+    }
+}
+
+export const getAllVehicle_cotroller = async (req,res) => {
+    try {
+        const {customer_id} = req.body;
+        if(!customer_id){
+            fieldsNotFilled(res)
+        }
+
+        const response = await getAllVehicle_service(customer_id);
+        sendResponse(response, res);
+    } catch (error) {
+        errorInServer("getAllVehicle_controller", error, res);
     }
 }

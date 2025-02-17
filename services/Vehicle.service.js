@@ -60,3 +60,26 @@ export const editVehicle_service = async (vehicle_id, year, make, model,type, mi
         }
     }
 }
+
+export const getAllVehicle_service = async (customer_id) =>{
+    try {
+        const vehicles = await Vehicle.find({customer_id: customer_id});
+        if(!vehicles) {
+            return {
+                success: false,
+                message: "No Vehicles found"
+            }
+        }
+
+        return {
+            success: true,
+            message: "All Vehicles found",
+            data: vehicles
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while get All Vehicle Service: "+ error
+        }
+    }
+} 
