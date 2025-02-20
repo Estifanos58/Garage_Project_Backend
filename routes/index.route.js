@@ -1,7 +1,7 @@
 import express from "express";
 import { LoginController , SignController, verifyEmployee} from "../controllers/Auth.controller.js";
 import { addCustomer_constroller, AddEmployeeController, deleteCustomer_controller, deleteEmployee_controller, editEmployee_controller, getAllCustomer_controller, getAllEmployee_controller, getCustomerById_controller, getEmployeeById_controller } from "../controllers/Admin.controller.js";
-import { AddService, editService, getAllService_controller } from "../controllers/Service.controller.js";
+import { AddService, deleteService_controller, editService, getAllService_controller } from "../controllers/Service.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { Autherize } from "../middleware/Autherize.js";
 import { addVehicle_controller, editVehicle_controller, getAllVehicle_cotroller } from "../controllers/Vehicle.controller.js";
@@ -23,9 +23,9 @@ route.get("/admin/get-all-employees", verifyToken, Autherize, getAllEmployee_con
 route.get("/admin/get-employee-by-id", verifyToken, Autherize, getEmployeeById_controller); //✅
 
     // Admin Service Controller
-route.post("/admin/add-service", verifyToken, Autherize, AddService);
-route.post("/admin/edit-service", verifyToken, Autherize, editService); 
-route.delete("/admin/delete-service", verifyToken, Autherize, deleteEmployee_controller);
+route.post("/admin/add-service", verifyToken, Autherize, AddService); // ✅
+route.patch("/admin/edit-service", verifyToken, Autherize, editService); // ✅
+route.delete("/admin/delete-service", verifyToken, Autherize, deleteService_controller); // ✅
 
 
     // Admin Customer
