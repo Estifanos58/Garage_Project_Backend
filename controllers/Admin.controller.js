@@ -1,4 +1,4 @@
-import { AddEmployeeService, deleteEmployee_service, editEmployeeService, getAllEmployee_service } from "../services/Admin.service.js";
+import { AddEmployeeService, deleteEmployee_service, editEmployeeService, getAllEmployee_service, getEmployeeById_service } from "../services/Admin.service.js";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const AddEmployeeController = async (req, res)=>{
@@ -17,12 +17,12 @@ export const AddEmployeeController = async (req, res)=>{
 }
 export const editEmployee_controller = async (req, res) =>{
     try {
-        const {userId,id,first_name,last_name,email,phone,role} = req.body;
-        if(!userId || !id){
+        const {id,first_name,last_name,email,phone,role} = req.body;
+        if(!id){
             fieldsNotFilled(res);
         }
 
-        const response = await editEmployeeService(userId,id,first_name,last_name,email,phone,role);
+        const response = await editEmployeeService(id,first_name,last_name,email,phone,role);
         
         sendResponse(response,res);
 
@@ -32,11 +32,11 @@ export const editEmployee_controller = async (req, res) =>{
 }
 export const deleteEmployee_controller = async (req, res) =>{
     try {
-        const {role, id} = req.body;
-        if(!role || !id) {
+        const {id} = req.body;
+        if(!id) {
             fieldsNotFilled(res);
         }
-        const response = await deleteEmployee_service(role, id);
+        const response = await deleteEmployee_service(id);
         sendResponse(response,res);
 
     } catch (error) {
@@ -61,11 +61,11 @@ export const getAllEmployee_controller = async (req, res) => {
 
 export const getEmployeeById_controller = async (req, res) => {
     try {
-        const {userId, employeeId} = req.body;
-        if(!userId || !employeeId) {
+        const {employeeId} = req.body;
+        if(!employeeId) {
             fieldsNotFilled(res)
         }
-        const response = await getEmployeeById_service(userId, employeeId);
+        const response = await getEmployeeById_service(employeeId);
        
         sendResponse(response,res);
     } catch (error) {

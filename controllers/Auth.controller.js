@@ -3,12 +3,12 @@ import { errorInServer, fieldsNotFilled } from "../util/response.js";
 
 export const SignController = async (req, res) =>{
     try {
-        const {first_name, last_name, email,password, phone} = req.body;
+        const {first_name, last_name, email,password, phone, role} = req.body;
         if(!first_name || !last_name || !email || !password || !phone){
             fieldsNotFilled(res)
         } 
 
-        const response = await sign_service(res,first_name, last_name, email,password, phone) 
+        const response = await sign_service(res,first_name, last_name, email,password, phone, role) 
         if(!response.success) return res.status(400).send(response);
 
         res.status(200).send(response);
@@ -20,6 +20,7 @@ export const SignController = async (req, res) =>{
 export const LoginController = async (req,res) =>{
     try {
         const {email, password} = req.body;
+        console.log("LOGIN CONTROLLER", email, password);
         if(!email || !password){
             fieldsNotFilled(res)
         }

@@ -110,7 +110,7 @@ export const sign_service = async (
   last_name,
   email,
   password,
-  phone
+  phone,
 ) => {
   try {
     // const existingUser = await Customer.findOne({email});
@@ -123,20 +123,22 @@ export const sign_service = async (
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const verificationCode = Math.floor(Math.random() * 400000 + 120000);
-    const response = await signUpVerificationCode(email, verificationCode);
+    // const response = await signUpVerificationCode(email, verificationCode);
     // // console.log("Response "+response.success)
-    if (!response.success) {
-      return {
-        success: false,
-        message: "Error  while sending message please cheack your email",
-      };
-    }
-    const user = new Customer({
+    // if (!response.success) {
+    //   return {
+    //     success: false,
+    //     message: "Error  while sending message please cheack your email",
+    //   };
+    // }
+    
+    const user = new User({
       first_name,
       last_name,
       email,
       password: hashedPassword,
       phone,
+      joined_date: Date.now(),
       verification_code: verificationCode,
       verification_expires_at: Date.now() + 24 * 60 * 60 * 1000,
     });

@@ -15,13 +15,13 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             const password = Math.floor(100000 + Math.random() * 600000).toString();
             const hashedPassword = await bcrypt.hash(password, 10);
         
-            const response =  await sendVerificationPassword(email,password,user.first_name, user.role)
-            if(!response.success){
-                return {
-                    success: false,
-                    message: "Error while sending message please Check you Email again"
-                }
-            }
+            // const response =  await sendVerificationPassword(email,password,first_name, role)
+            // if(!response.success){
+            //     return {
+            //         success: false,
+            //         message: "Error while sending message please Check you Email again"
+            //     }
+            // }
 
             const user = new User({
                 first_name,
@@ -30,8 +30,8 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
                 password: hashedPassword,
                 verification_expires_at: Date.now() + 24 * 60 * 60 * 1000 ,
                 phone,
-                role,
                 status: "initial",
+                role,
                 joined_date: Date.now()
             });
 
@@ -44,7 +44,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
     } catch (error) {
         return {
             success: false,
-            message: "Error while Adding Employee In service"+ error 
+            message: "Error while Adding Employee In service: "+ error 
         }
     }
 
@@ -83,7 +83,7 @@ export const editEmployeeService = async (id,first_name,last_name,email,phone,ro
 
 export const deleteEmployee_service = async (id) =>{
     try {
-            const user = await User.findAndDelete({_id:id});
+            const user = await User.findByIdAndDelete(id);
             if(!user) return {
                 success: false,
                 message: "User not found"

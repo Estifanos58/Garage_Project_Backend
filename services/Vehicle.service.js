@@ -1,5 +1,5 @@
-import { Customer } from "../model/Customer"
-import { Vehicle } from "../model/Vehicle";
+import { Customer } from "../model/Customer.js"
+import { Vehicle } from "../model/Vehicle.js";
 
 export const addVehicle_service = async (customer_id, year, make, model,type, mileage, tag, serial_number, color, vin) =>{
     try {

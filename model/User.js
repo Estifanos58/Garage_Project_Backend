@@ -13,7 +13,7 @@ export const userSchema = mongoose.Schema({
         type: String,
     },
     status: {
-        type: String,
+        type: String,    // "active", "inactive", "initial"
         required: true,
     },
     role: {

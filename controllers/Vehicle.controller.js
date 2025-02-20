@@ -1,5 +1,5 @@
-import { addVehicle_service, editVehicle_service, getAllVehicle_service } from "../services/Vehicle.service";
-import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response";
+import { addVehicle_service, editVehicle_service, getAllVehicle_service } from "../services/Vehicle.service.js";
+import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const addVehicle_controller = async (req, res) => {
     try {
