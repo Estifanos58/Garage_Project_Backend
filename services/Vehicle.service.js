@@ -63,7 +63,7 @@ export const editVehicle_service = async (vehicle_id, year, make, model,type, mi
 
 export const getAllVehicle_service = async (customer_id) =>{
     try {
-        const vehicles = await Vehicle.find({customer_id: customer_id});
+        const vehicles = await Vehicle.findOne({customer_id: customer_id});
         if(!vehicles) {
             return {
                 success: false,

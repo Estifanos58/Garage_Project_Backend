@@ -36,9 +36,9 @@ route.get("/admin/get-customer-by-id", verifyToken, Autherize, getCustomerById_c
 route.delete("/admin/delete-customer", verifyToken, Autherize, deleteCustomer_controller); // ✅
 
     // Admin Vehicle
-route.post("/admin/add-vehicle", verifyToken, Autherize, addVehicle_controller);
-route.post("/admin/edit-vehicle", verifyToken, Autherize, editVehicle_controller);
-route.get("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotroller);
+route.post("/admin/add-vehicle", verifyToken, Autherize, addVehicle_controller); // ✅
+route.post("/admin/edit-vehicle", verifyToken, Autherize, editVehicle_controller); // ✅
+route.get("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotroller); //✅
 
 
 
