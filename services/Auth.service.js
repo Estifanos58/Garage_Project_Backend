@@ -8,6 +8,32 @@ import {
 } from "../util/emails.js";
 // import { res } from "../util/emails.js";n
 
+export const getUserInfo_service = async (email) => {
+  try {
+    const user = await User.findOne({email});
+    if(!user) {
+      return {
+        success: false,
+        message: "user no found",
+      };
+    } else {
+      return {
+        success: true,
+        message: "User found",
+        data: {
+          ...user._doc,
+          password: null,
+        },
+      };
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error with the Login Service Occured",
+    };
+  }
+}
+
 export const LoginService = async (res, email, password) => {
   try {
     const foundUser = await User.findOne({ email });
@@ -28,7 +54,7 @@ export const LoginService = async (res, email, password) => {
       return {
         success: true,
         message: "User login successfully",
-        user: {
+        data: {
           ...foundUser._doc,
           password: null,
         },

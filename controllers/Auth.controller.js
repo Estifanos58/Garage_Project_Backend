@@ -1,4 +1,4 @@
-import { LoginService, verifyEmployeeService, sign_service } from "../services/Auth.service.js";
+import { LoginService, verifyEmployeeService, sign_service, getUserInfo_service } from "../services/Auth.service.js";
 import { errorInServer, fieldsNotFilled } from "../util/response.js";
 
 export const SignController = async (req, res) =>{
@@ -14,6 +14,26 @@ export const SignController = async (req, res) =>{
         res.status(200).send(response);
     } catch (error) {
         errorInServer("SignController",error,res);
+    }
+}
+
+export const getUserInfo_controller = async (req, res) =>{
+    try {
+        const {email} = req.body;
+        if(!email){
+            fieldsNotFilled(res)
+        }
+
+        const response = await getUserInfo_service(email);
+        if(response.success){
+            return res.status(200).send(response);
+        }
+        else {
+            return res.status(400).send(response);
+        }
+        
+    } catch (error) {
+        errorInServer("getUserInfo_controller",error,res);
     }
 }
 
