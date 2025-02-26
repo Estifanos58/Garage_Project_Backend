@@ -29,7 +29,7 @@ export const getUserInfo_service = async (email) => {
   } catch (error) {
     return {
       success: false,
-      message: "Error with the Login Service Occured",
+      message: "Error with the GetInfo Service Occured",
     };
   }
 }
@@ -63,7 +63,7 @@ export const LoginService = async (res, email, password) => {
   } catch (error) {
     return {
       success: false,
-      message: "Error with the Login Service Occured",
+      message: "Error with the Login Service Occured: " + error.message,
     };
   }
 };

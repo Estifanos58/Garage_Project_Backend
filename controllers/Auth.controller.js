@@ -19,7 +19,8 @@ export const SignController = async (req, res) =>{
 
 export const getUserInfo_controller = async (req, res) =>{
     try {
-        const {email} = req.body;
+        const email = req.email;
+        console.log("GET USER INFO CONTROLLER", email);
         if(!email){
             fieldsNotFilled(res)
         }
@@ -59,6 +60,15 @@ export const LoginController = async (req,res) =>{
     } 
 }
 
+export const LogOutController = async (req, res) => {
+    try {
+        // req.session.destroy();
+        req.cookies = null;
+        return res.status(200).send({success: true, message: "User Logged out successfully"});
+    } catch (error) {
+        errorInServer("LogOutController",error,res);
+    }
+}
 export const verifyEmployee = async (req, res) =>{
     try {
         const {id,old_password,new_password} = req.body;

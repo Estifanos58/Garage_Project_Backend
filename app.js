@@ -13,7 +13,13 @@ dotenv.config()
 
 const app = express();
 
-app.use(cors());
+
+app.use(cors({
+    origin: "http://localhost:5173", // Change to your frontend URL
+    credentials: true // This is important!
+}));
+
+
 app.use(express.json())
 app.use(cookieParser());
 const port = process.env.PORT || 5500
