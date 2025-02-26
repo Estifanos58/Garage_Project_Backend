@@ -5,56 +5,56 @@ export const AddEmployeeController = async (req, res)=>{
     try {
         const {first_name,last_name,email,phone,role} = req.body;
         if(!first_name,!last_name,!email,!phone,!role){
-            fieldsNotFilled(res);
+            return fieldsNotFilled(res);
         }
     
         const response = await AddEmployeeService(first_name,last_name,email,phone,role);
         
-        sendResponse(response,res);
+        return sendResponse(response,res);
     } catch (error) {
-       errorInServer("addEmployeeController", error, res);
+       return errorInServer("addEmployeeController", error, res);
     }  
 }
 export const editEmployee_controller = async (req, res) =>{
     try {
         const {id,first_name,last_name,email,phone,role} = req.body;
         if(!id){
-            fieldsNotFilled(res);
+            return fieldsNotFilled(res);
         }
 
         const response = await editEmployeeService(id,first_name,last_name,email,phone,role);
         
-        sendResponse(response,res);
+        return sendResponse(response,res);
 
     } catch (error) {
-        errorInServer("editEmployeeController",error,res);
+        return errorInServer("editEmployeeController",error,res);
     }
 }
 export const deleteEmployee_controller = async (req, res) =>{
     try {
         const {id} = req.body;
         if(!id) {
-            fieldsNotFilled(res);
+            return fieldsNotFilled(res);
         }
         const response = await deleteEmployee_service(id);
-        sendResponse(response,res);
+        return sendResponse(response,res);
 
     } catch (error) {
-       errorInServer("deleteEmployeeContoller",error,res);
+       return errorInServer("deleteEmployeeContoller",error,res);
     }
 }
 
 export const getAllEmployee_controller = async (req, res) => {
     try {
-        const {userId} = req.body;
+        const userId = req.userId;
         if(!userId){
-           fieldsNotFilled(res);
+           return fieldsNotFilled(res)
         }
     
         const response  = await getAllEmployee_service(userId);
-        sendResponse(response,res);
+        return sendResponse(response, res);
     } catch (error) {
-       errorInServer("getAllEmployeeController",error,res);
+       return errorInServer("getAllEmployeeController", error, res);
     }
   
 }
@@ -63,13 +63,13 @@ export const getEmployeeById_controller = async (req, res) => {
     try {
         const {employeeId} = req.body;
         if(!employeeId) {
-            fieldsNotFilled(res)
+            return fieldsNotFilled(res)
         }
         const response = await getEmployeeById_service(employeeId);
        
-        sendResponse(response,res);
+        return sendResponse(response,res);
     } catch (error) {
-       errorInServer("getEmployeeByIdController",error,res);
+       return errorInServer("getEmployeeByIdController",error,res);
     }
 }
 

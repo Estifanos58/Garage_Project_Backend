@@ -5,13 +5,13 @@ export const AddService = async (req,res)=> {
     try {
         const {userId, name, description, price} = req.body;
         if(!userId || !name || !description || !price){
-           fieldsNotFilled(res);
+           return fieldsNotFilled(res);
         }
          const response = await addService_service(userId,name, description,price);
          
-         sendResponse(response,res);
+         return sendResponse(response,res);
     } catch (error) {
-        errorInServer("addService",error,res);
+        return errorInServer("addService",error,res);
     }
 }
 
@@ -19,22 +19,22 @@ export const editService = async (req,res) =>{
     try {
         const {userId, service_id, name, description, price} = req.body;
         if(!userId || !service_id){
-            fieldsNotFilled(res);
+            return fieldsNotFilled(res);
         }
         const response = await editService_service(userId, service_id,name,description,price);
         
-        sendResponse(response,res);
+        return sendResponse(response,res);
     } catch (error) {
-        errorInServer("editService",error,res);
+        return errorInServer("editService",error,res);
     }
 }
 
 export const getAllService_controller = async (req, res) => {
     try {
         const response = await getAllService_service();
-        sendResponse(response,res);
+        return sendResponse(response,res);
     } catch (error) {
-        errorInServer("getAllService_controller",error,res);
+        return errorInServer("getAllService_controller",error,res);
     }
 }
 
@@ -42,13 +42,13 @@ export const deleteService_controller = async (req, res) =>{
     try {
         const {serviceId} = req.body
         if(!serviceId) {
-            fieldsNotFilled(res);
+            return fieldsNotFilled(res);
         }
         
         const response = await deleteService_service(serviceId);
 
-        sendResponse(response,res);
+        return sendResponse(response,res);
     } catch (error) {
-        errorInServer("deleteService",error,res);
+        return errorInServer("deleteService",error,res);
     }
 }
