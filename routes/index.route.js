@@ -20,7 +20,7 @@ route.get("/user/get-userInfo", verifyToken, getUserInfo_controller);
 // Admin Controllers
     // Admin Employee Controller
 route.post("/admin/add-employee", verifyToken, Autherize, AddEmployeeController); //✅
-route.post("/admin/edit-employee", verifyToken, Autherize, editEmployee_controller); //✅
+route.put("/admin/edit-employee", verifyToken, Autherize, editEmployee_controller); //✅
 route.delete("/admin/delete-employee", verifyToken, Autherize, deleteEmployee_controller); // ✅
 route.get("/admin/get-all-employees", verifyToken, Autherize, getAllEmployee_controller); //✅
 route.get("/admin/get-employee-by-id", verifyToken, Autherize, getEmployeeById_controller); //✅

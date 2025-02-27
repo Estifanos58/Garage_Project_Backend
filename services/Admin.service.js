@@ -51,7 +51,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
 
 }
 
-export const editEmployeeService = async (id,first_name,last_name,email,phone,role) => {
+export const editEmployeeService = async (id,first_name,last_name,email,phone,role,status) => {
     try {
             const user = await User.findById(id);
             if(!user) {
@@ -60,18 +60,27 @@ export const editEmployeeService = async (id,first_name,last_name,email,phone,ro
                     message: "No user found with the given Id"
                 }
             }
+            const duplicate = await User.findOne({email});
+            if(duplicate && duplicate._id != id){
+                    return {
+                        success: false,
+                        message: "Email already exist"
+                }
+            }
 
             if(first_name) user.first_name = first_name;
             if(last_name) user.last_name = last_name;
             if(email) user.email = email;
             if(phone) user.phone = phone;
             if(role) user.role = role;
+            if(status) user.status = status;
 
             await user.save()
 
             return {
                 success: true,
-                message: "Employee Edited succesfully"
+                message: "Employee Edited succesfully",
+                data: user
             }
        
     } catch (error) {
