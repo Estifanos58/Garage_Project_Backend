@@ -40,6 +40,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             return {
                 success: true,
                 message: "Employee Added",
+                data: user
             }
     } catch (error) {
         return {

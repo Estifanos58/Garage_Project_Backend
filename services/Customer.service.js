@@ -6,6 +6,7 @@ import { customerAddedPassword } from "../util/emails.js";
 export const addCustomer_service = async (email,first_name,last_name,phone) => {
     try {
             const existingUser = await Customer.findOne({email});
+            
             if(existingUser) return { 
                 success: false,
                 message: "User with this email already exists"
@@ -26,7 +27,8 @@ export const addCustomer_service = async (email,first_name,last_name,phone) => {
 
             return {
                 success: true,
-                message: "Customer Added"
+                message: "Customer Added",
+                data: user
             }
         
     } catch (error) {
