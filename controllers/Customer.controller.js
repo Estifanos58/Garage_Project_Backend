@@ -1,4 +1,4 @@
-import { addCustomer_service, deleteCustomer_service, getAllCustomer_service, getCustomerById_service } from "../services/Customer.service.js";
+import { addCustomer_service, deleteCustomer_service, editCustomer_service, getAllCustomer_service, getCustomerById_service } from "../services/Customer.service.js";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const addCustomer_constroller = async (req, res) => {
@@ -13,6 +13,20 @@ export const addCustomer_constroller = async (req, res) => {
 
     } catch (error) {
        return errorInServer("addCustomerController",error,res);
+    }
+}
+
+export const editCustomer_controller = async (req, res) => {
+    try {
+        const {id, email, first_name, last_name, phone, status} = req.body;
+        if(!id){
+            return fieldsNotFilled(res);
+        }
+
+        const response = await editCustomer_service(id,email,first_name,last_name,phone, status);
+        return sendResponse(response, res);
+    } catch (error) {
+        return errorInServer("editCustomer_controller", error, res);
     }
 }
 

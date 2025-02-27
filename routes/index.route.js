@@ -5,7 +5,7 @@ import { AddService, deleteService_controller, editService, getAllService_contro
 import { verifyToken } from "../middleware/verifyToken.js";
 import { Autherize } from "../middleware/Autherize.js";
 import { addVehicle_controller, editVehicle_controller, getAllVehicle_cotroller } from "../controllers/Vehicle.controller.js";
-import { addCustomer_constroller, getAllCustomer_controller, getCustomerById_controller, deleteCustomer_controller } from "../controllers/Customer.controller.js";
+import { addCustomer_constroller, getAllCustomer_controller, getCustomerById_controller, deleteCustomer_controller, editCustomer_controller } from "../controllers/Customer.controller.js";
 
 export const route = express.Router();
 
@@ -33,6 +33,7 @@ route.delete("/admin/delete-service", verifyToken, Autherize, deleteService_cont
 
     // Admin Customer
 route.post("/admin/add-customer", verifyToken, Autherize, addCustomer_constroller); // ✅
+route.put("/admin/edit-customer", verifyToken, Autherize, editCustomer_controller); // ✅
 route.get("/admin/get-all-customers", verifyToken, Autherize, getAllCustomer_controller); // ✅
 route.get("/admin/get-customer-by-id", verifyToken, Autherize, getCustomerById_controller); // ✅
 route.delete("/admin/delete-customer", verifyToken, Autherize, deleteCustomer_controller); // ✅

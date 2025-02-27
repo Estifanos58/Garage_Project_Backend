@@ -20,6 +20,10 @@ const customerSchema = new mongoose.Schema({
     phone: {
         type: String,
     },
+    status: {
+        type: Boolean,
+        default: true,
+    },
     added_date: {
         type: Date,
         default: Date.now,

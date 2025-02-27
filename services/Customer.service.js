@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { customerAddedPassword } from "../util/emails.js";
 
 
-export const addCustomer_service = async (email,first_name,last_name,phone) => {
+export const addCustomer_service = async (email,first_name,last_name,phone, status) => {
     try {
             const existingUser = await Customer.findOne({email});
             
@@ -38,6 +38,45 @@ export const addCustomer_service = async (email,first_name,last_name,phone) => {
         }
     }
   
+
+}
+
+export const editCustomer_service = async (id,email,first_name,last_name,phone, status) => {
+    try {
+        const user = await Customer.findById(id);
+        if(!user){
+            return {
+                success: false,
+                message: "No user found with the given Id"
+            }
+        }
+        const duplicate = await Customer.findOne({email});
+        if(duplicate && duplicate._id.toString() !== id){
+            return {
+                success: false,
+                message: "User with this email already exists"
+            }
+        }
+        if(email) user.email = email;
+        if(first_name) user.first_name = first_name;
+        if(last_name) user.last_name = last_name;
+        if(phone) user.phone = phone;
+        if(status) user.status = status;
+        await user.save();
+        
+        return {
+            success: true,
+            message: "Customer Updated",
+            data: user
+        }
+
+    } catch (error) {
+        return {
+                success: false,
+                message: "Error while Editting Customer In service: "+ error 
+            
+        }
+    }
 
 }
 
