@@ -3,12 +3,12 @@ import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.j
 
 export const addVehicle_controller = async (req, res) => {
     try {
-        const {customer_id, year, make, model,type, mileage, tag, serial_number, color, vin} = req.body;
-        if(!customer_id || !year || !make || !model || !type || !mileage || !tag || !serial_number || !color ||!vin){
+        const {customer_id, year, make, model,type, mileage, tag, serial_number, color} = req.body;
+        if(!customer_id || !year || !make || !model || !type || !mileage || !tag || !serial_number || !color){
             return fieldsNotFilled(res);
         }
 
-        const response = await addVehicle_service(customer_id, year, make, model,type, mileage, tag, serial_number, color, vin);
+        const response = await addVehicle_service(customer_id, year, make, model,type, mileage, tag, serial_number, color);
         return sendResponse(response, res);
     } catch (error) {
         return errorInServer("addVehicle_controller", error,res);

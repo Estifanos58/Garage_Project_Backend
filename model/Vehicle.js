@@ -6,7 +6,7 @@ const vehicleSchema = new mongoose.Schema({
         ref: "Customer",
     },
     year: {
-        type: Date
+        type: String,
     },
     make: {
         type: String,
@@ -28,9 +28,6 @@ const vehicleSchema = new mongoose.Schema({
     },
     color: {
         type: String, 
-    },
-    vin: {
-        type: String
     }
 }, {timestamps: true});
 

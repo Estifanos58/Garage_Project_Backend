@@ -29,6 +29,7 @@ route.get("/admin/get-employee-by-id", verifyToken, Autherize, getEmployeeById_c
 route.post("/admin/add-service", verifyToken, Autherize, AddService); // ✅
 route.patch("/admin/edit-service", verifyToken, Autherize, editService); // ✅
 route.delete("/admin/delete-service", verifyToken, Autherize, deleteService_controller); // ✅
+route.get("/admin/get-all-service", verifyToken, Autherize, getAllService_controller);
 
 
     // Admin Customer
@@ -41,7 +42,7 @@ route.delete("/admin/delete-customer", verifyToken, Autherize, deleteCustomer_co
     // Admin Vehicle
 route.post("/admin/add-vehicle", verifyToken, Autherize, addVehicle_controller); // ✅
 route.post("/admin/edit-vehicle", verifyToken, Autherize, editVehicle_controller); // ✅
-route.get("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotroller); //✅
+route.post("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotroller); //✅
 
 
 

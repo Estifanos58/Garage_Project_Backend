@@ -1,7 +1,7 @@
 import { Customer } from "../model/Customer.js"
 import { Vehicle } from "../model/Vehicle.js";
 
-export const addVehicle_service = async (customer_id, year, make, model,type, mileage, tag, serial_number, color, vin) =>{
+export const addVehicle_service = async (customer_id, year, make, model,type, mileage, tag, serial_number, color) =>{
     try {
         const customer = await Customer.findById(customer_id);
         if(!customer) {
@@ -11,13 +11,14 @@ export const addVehicle_service = async (customer_id, year, make, model,type, mi
             }
         }
 
-        const vehicle = new Vehicle({customer_id, year,make,model,type,mileage,tag,serial_number,color,vin});
+        const vehicle = new Vehicle({customer_id, year,make,model,type,mileage,tag,serial_number,color});
         
         await vehicle.save();
         
         return {
             success: true,
-            message: "Vehicle Added"
+            message: "Vehicle Added",
+            data: vehicle
         }
 
     } catch (error) {
@@ -63,7 +64,7 @@ export const editVehicle_service = async (vehicle_id, year, make, model,type, mi
 
 export const getAllVehicle_service = async (customer_id) =>{
     try {
-        const vehicles = await Vehicle.findOne({customer_id: customer_id});
+        const vehicles = await Vehicle.find({customer_id});
         if(!vehicles) {
             return {
                 success: false,

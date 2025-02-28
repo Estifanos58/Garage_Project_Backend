@@ -8,8 +8,9 @@ export const addService_service = async (userId,name,description,price) => {
         if (!user){
           return { success: false, message: "No user found by the given ID" };
         }
+        const duplicate = await Service.findOne({ name });
 
-        if (await Service.findOne({ name })) {
+        if (duplicate) {
           return {
             success: false,
             message: "Service with the given name already exists",
@@ -24,7 +25,7 @@ export const addService_service = async (userId,name,description,price) => {
         });
         await service.save();
 
-        return { success: true, message: "Service added successfully." };
+        return { success: true, message: "Service added successfully.", data: service };
   } catch(error) {
    errorService("addService_service", error);
   }

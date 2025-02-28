@@ -7,10 +7,10 @@ export const fieldsNotFilled = (res)=>{
 
 export const errorInServer = (service,error,res) => {
     console.log("Error happened ", error);
-    // return res.status(500).send({
-    //     success: false,
-    //     message: `Error occured at ${service}`
-    // })
+    return res.status(500).send({
+        success: false,
+        message: `Error occured at ${service}`
+    })
 }
 
 export const sendResponse = (response,res) => {

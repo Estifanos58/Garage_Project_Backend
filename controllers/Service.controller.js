@@ -3,7 +3,8 @@ import {addService_service, deleteService_service, editService_service, getAllSe
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 export const AddService = async (req,res)=> {
     try {
-        const {userId, name, description, price} = req.body;
+        const {name, description, price} = req.body;
+        const userId = req.userId;
         if(!userId || !name || !description || !price){
            return fieldsNotFilled(res);
         }
