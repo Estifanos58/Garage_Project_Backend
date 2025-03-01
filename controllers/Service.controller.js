@@ -18,7 +18,8 @@ export const AddService = async (req,res)=> {
 
 export const editService = async (req,res) =>{
     try {
-        const {userId, service_id, name, description, price} = req.body;
+        const {service_id, name, description, price} = req.body;
+        const userId = req.userId; 
         if(!userId || !service_id){
             return fieldsNotFilled(res);
         }

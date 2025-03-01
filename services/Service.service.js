@@ -36,16 +36,25 @@ export const editService_service = async (userId,serviceId,name,description,pric
         if (!user)
           return { success: false, message: "No user found with the given ID" };
     
+        const duplicate = await Service.findOne({ name });
+
+        if (duplicate && duplicate._id !== serviceId) {
+          return {
+            success: false,
+            message: "Service with the given name already exists",
+          };
+        }
+
         const service = await Service.findById(serviceId);
         if (!service)
           return { success: false, message: "No service found with the given ID" };
-    
+
         if (name) service.name = name;
         if (description) service.description = description;
         if (price) service.price = price;
     
         await service.save();
-        return { success: true, message: "Service updated successfully." };
+        return { success: true, message: "Service updated successfully.", data: service };
     
   } catch (error) {
    errorService("editService_service", error);
