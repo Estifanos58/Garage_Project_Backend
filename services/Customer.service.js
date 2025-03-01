@@ -148,3 +148,26 @@ export const deleteCustomer_service = async (customer_id) => {
         }
     }
 } 
+
+export const searchCustomer_service = async (searchTerm) => {
+    try {
+        const customers = await Customer.find({
+            $or: [
+                { first_name: { $regex: searchTerm, $options: 'i' } },
+                { last_name: { $regex: searchTerm, $options: 'i' } },
+                { email: { $regex: searchTerm, $options: 'i' } },
+                { phone: { $regex: searchTerm, $options: 'i' } }
+            ]
+        });
+
+        return {
+            success: true,
+            data: customers,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while searching customer in Service: " + error.message,
+        };
+    }
+};
