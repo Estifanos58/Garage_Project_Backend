@@ -16,6 +16,10 @@ export const userSchema = mongoose.Schema({
         type: String,    // "active", "inactive", "initial"
         required: true,
     },
+    occupied: {
+        type: Boolean,
+        default: false,
+    },
     role: {
         type: String,
         required: true

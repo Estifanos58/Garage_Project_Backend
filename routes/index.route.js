@@ -45,6 +45,9 @@ route.post("/admin/add-vehicle", verifyToken, Autherize, addVehicle_controller);
 route.post("/admin/edit-vehicle", verifyToken, Autherize, editVehicle_controller); // ✅
 route.post("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotroller); //✅
 
+    // Admin Order
+route.post("/admin/add-order", verifyToken, Autherize, addOrder_controller); // ✅
+
 
 
 
