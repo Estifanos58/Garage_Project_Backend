@@ -1,4 +1,4 @@
-import { AddEmployeeService, deleteEmployee_service, editEmployeeService, getAllEmployee_service, getEmployeeById_service } from "../services/Admin.service.js";
+import { AddEmployeeService, deleteEmployee_service, editEmployeeService, getAllEmployee_service, getEmployeeById_service, getEmployeeForWork_service } from "../services/Admin.service.js";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const AddEmployeeController = async (req, res)=>{
@@ -73,3 +73,12 @@ export const getEmployeeById_controller = async (req, res) => {
     }
 }
 
+export const getEmployeeForWork_controller = async (req, res) => {
+    try {
+        const response = await getEmployeeForWork_service(res);
+
+        return sendResponse(response,res);
+    } catch (error) {
+        return errorInServer("getEmployeeForWorkController",error,res);
+    }
+}

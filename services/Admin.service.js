@@ -56,6 +56,7 @@ export const editEmployeeService = async (id,first_name,last_name,email,phone,ro
             const user = await User.findById(id);
             if(!user) {
                 return {
+                    status: 204,
                     success: false,
                     message: "No user found with the given Id"
                 }
@@ -154,8 +155,33 @@ export const getEmployeeById_service = async (employeeId) => {
     } catch (error) {
         return res.status(500).send({
             success: false,
-            message: "Error occured in getEmployeeById_service "+ error
+            message: "Error occured in getEmployeeById_servie "+ error
         })
+    }
+}
+
+export const getEmployeeForWork_service = async (res) => {
+    try {
+        const employees = await User.find({
+            role: { $regex: /^employee$/i }, // Case-insensitive match
+            $or: [{ occupied: false }, { occupied: { $exists: false } }] // Handles missing 'occupied' field
+        }).lean();  //status: "active"
+            if(employees.length === 0){
+                return {
+                    success: false,
+                    message: "No Employees found"
+                };
+            }
+            return {
+                success: true,
+                message: "All employees found",
+                data: employees
+            }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Error while GETING Employees In service"+ error 
+        }
     }
 }
 

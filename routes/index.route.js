@@ -1,12 +1,12 @@
 import express from "express";
 import { LoginController , SignController, verifyEmployee, getUserInfo_controller, LogOutController} from "../controllers/Auth.controller.js";
-import { AddEmployeeController, deleteEmployee_controller, editEmployee_controller, getAllEmployee_controller, getEmployeeById_controller } from "../controllers/Admin.controller.js";
+import { AddEmployeeController, deleteEmployee_controller, editEmployee_controller, getAllEmployee_controller, getEmployeeById_controller, getEmployeeForWork_controller } from "../controllers/Admin.controller.js";
 import { AddService, deleteService_controller, editService, getAllService_controller } from "../controllers/Service.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { Autherize } from "../middleware/Autherize.js";
 import { addVehicle_controller, editVehicle_controller, getAllVehicle_cotroller } from "../controllers/Vehicle.controller.js";
 import { addCustomer_constroller, getAllCustomer_controller, getCustomerById_controller, deleteCustomer_controller, editCustomer_controller, searchCustomer_controller } from "../controllers/Customer.controller.js";
-import { addOrder_controller, getAllOrder_controller } from "../controllers/Order.controller.js";
+import { addOrder_controller, editOrder_controller, getAllOrder_controller } from "../controllers/Order.controller.js";
 
 export const route = express.Router();
 
@@ -25,6 +25,7 @@ route.put("/admin/edit-employee", verifyToken, Autherize, editEmployee_controlle
 route.delete("/admin/delete-employee", verifyToken, Autherize, deleteEmployee_controller); // ✅
 route.get("/admin/get-all-employees", verifyToken, Autherize, getAllEmployee_controller); //✅
 route.get("/admin/get-employee-by-id", verifyToken, Autherize, getEmployeeById_controller); //✅
+route.get("/admin/workEmpolyee", verifyToken, Autherize, getEmployeeForWork_controller); //✅
 
     // Admin Service Controller
 route.post("/admin/add-service", verifyToken, Autherize, AddService); // ✅
@@ -49,6 +50,7 @@ route.post("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotro
     // Admin Order
 route.post("/admin/add-order", verifyToken, Autherize, addOrder_controller); // ✅
 route.get("/admin/get-all-orders", verifyToken, Autherize, getAllOrder_controller); // ✅
+route.put("/admin/edit-order",verifyToken, Autherize, editOrder_controller);
 
 
 
