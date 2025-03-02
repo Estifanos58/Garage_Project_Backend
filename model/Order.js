@@ -3,28 +3,28 @@ import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Customer",
+        ref: "customer",
     },
     vehicle_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehicle",
+        ref: "vehicle",
     },
     employee_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
-    assignedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
     services: {
         type: Array,
-        required: true,
+    },
+    status: {
+        type: String, // Complete, In progress, Received, pending
     },
     total: {
-        type: Number,
-        required: true,
+        type: String,
     },
+    completion_date: {
+        type: Date
+    }
 }, {timestamps: true});
 
 export const Order = mongoose.model("order", orderSchema);

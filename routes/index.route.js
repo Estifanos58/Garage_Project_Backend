@@ -6,6 +6,7 @@ import { verifyToken } from "../middleware/verifyToken.js";
 import { Autherize } from "../middleware/Autherize.js";
 import { addVehicle_controller, editVehicle_controller, getAllVehicle_cotroller } from "../controllers/Vehicle.controller.js";
 import { addCustomer_constroller, getAllCustomer_controller, getCustomerById_controller, deleteCustomer_controller, editCustomer_controller, searchCustomer_controller } from "../controllers/Customer.controller.js";
+import { addOrder_controller, getAllOrder_controller } from "../controllers/Order.controller.js";
 
 export const route = express.Router();
 
@@ -47,6 +48,7 @@ route.post("/admin/get-all-vehicle", verifyToken, Autherize, getAllVehicle_cotro
 
     // Admin Order
 route.post("/admin/add-order", verifyToken, Autherize, addOrder_controller); // ✅
+route.get("/admin/get-all-orders", verifyToken, Autherize, getAllOrder_controller); // ✅
 
 
 
