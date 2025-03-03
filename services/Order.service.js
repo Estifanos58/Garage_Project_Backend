@@ -52,36 +52,47 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
 export const editOrder_service = async (employee_id, order_id) => {
     try {
         const user = await User.findById(employee_id);
-        if(!user){
+        if (!user) {
             return {
                 success: false,
                 message: "No employee found with the given Id"
-            }
+            };
         }
-        const order = await Order.findById(order_id);
-        if(!order) {
+
+        let order = await Order.findById(order_id);
+        if (!order) {
             return {
                 success: false,
                 message: "No Order found with the given Id"
-            }
+            };
         }
+
+        // Assign the employee and update the status
         user.occupied = true;
         order.employee_id = employee_id;
-        order.status = "In progress"
+        order.status = "In progress";
         await user.save();
         await order.save();
+
+        // Populate after saving to get updated employee details
+        order = await Order.findById(order_id)
+            .populate("customer_id", "first_name last_name email phone")
+            .populate("vehicle_id", "make model year")
+            .populate("employee_id", "first_name last_name email phone") // Ensure full details are populated
+            .populate("services.service_id", "name price description")
+            .select("customer_id vehicle_id employee_id services status total createdAt updatedAt");
 
         return {
             success: true,
             message: "Order Updated",
             data: order
-        }
+        };
     } catch (error) {
         console.error("Error in editOrder_service:", error);
         return { success: false, message: "Internal Server Error" };
     }
+};
 
-}
 
 
 export const getAllOrder_service = async () => {
