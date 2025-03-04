@@ -1,4 +1,4 @@
-import { LoginService, verifyEmployeeService, sign_service, getUserInfo_service, changePassword_Service, forgotPasswordService } from "../services/Auth.service.js";
+import { LoginService, verifyEmployeeService, sign_service, getUserInfo_service, changePassword_Service, forgotPasswordService, RestPasswordService } from "../services/Auth.service.js";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const SignController = async (req, res) =>{
@@ -76,6 +76,23 @@ export const LoginController = async (req,res) =>{
     } catch (error) {
        return errorInServer("LoginController", error,res);
     } 
+}
+
+export const ResetPasswordController = async (req, res) => {
+    try {
+        const {password} = req.body;
+        const hash = req.params.hash;
+
+        if(!password || !hash){
+            return fieldsNotFilled(res)
+        }
+
+        const response = await RestPasswordService(res, password, hash);
+        return sendResponse(response, res);
+
+    } catch (error) {
+        return errorInServer("ChangePasswordController", error, res);
+    }
 }
 
 export const LogOutController = async (req, res) => {

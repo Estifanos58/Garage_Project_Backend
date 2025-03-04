@@ -33,7 +33,7 @@ export const userSchema = mongoose.Schema({
         type: String,
     },
     reset_password_token: String,
-    reset_password_expires_at_token: String,
+    reset_password_expires_at_token: Date,
     joined_date: String,
     verification_code: String,
     verification_expires_at: String,

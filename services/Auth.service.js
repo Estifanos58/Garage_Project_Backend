@@ -75,6 +75,39 @@ export const changePassword_Service = async (res, userId, old_password, new_pass
   }
 }
 
+export const RestPasswordService = async (res, new_password, hash) => {
+  try {
+    const user = await User.findOne({
+      reset_password_token: hash,
+      reset_password_expires_at_token: { $gt: new Date() } // Ensure token is not expired
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: "No valid user found with the given token",
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(new_password, 10);
+    user.password = hashedPassword;
+    user.reset_password_token = null;
+    user.reset_password_expires_at_token = null;
+    await user.save();
+
+    return {
+      success: true,
+      message: "Password reset successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error with the Reset Password Service occurred",
+    };
+  }
+};
+
+
 export const forgotPasswordService = async (res, email) => {
   try {
     const user = await User.findOne({email});
@@ -94,8 +127,8 @@ export const forgotPasswordService = async (res, email) => {
     await user.save();
 
     const response = await ForgotPassword(email, hash);
-    const { success } = response;
-    if(!success) {
+    const accepted = response.accepted;
+    if(accepted === null) {
       return {
         success: false,
         message: "Error while sending message please check your email",
