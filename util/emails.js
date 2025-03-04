@@ -2,7 +2,7 @@
 import { transport, sender } from "../config/mail.config.js";
 
 // import { sender } from "../config/mailtrap.config.js";
-import { WELCOME_MESSAGE, PASSWORD_VERIFICATION, CUSTOMER_PASSWORD } from "../config/mailtrap.template.js";
+import { WELCOME_MESSAGE, PASSWORD_VERIFICATION, CUSTOMER_PASSWORD, FORGOT_PASSWORD } from "../config/mailtrap.template.js";
 
 export const sendVerificationPassword = async (email, password, first_name, role) => {
     const recipients = email;
@@ -52,6 +52,26 @@ export const customerAddedPassword = async (email, passwrod) => {
             html: CUSTOMER_PASSWORD.replace("{password}", passwrod),
             category: "Use this password"
         })
+        console.log("Email sent to the user", response);
+        return response;  // ✅ Ensure you return the response
+    } catch (error) {
+        console.error("Error occurred:", error);
+        throw error;  // ✅ Let the calling function handle the error
+    }
+}
+
+export const ForgotPassword = async (email, code) => {
+    const recipients = [email];
+    const hash = `${process.env.CLIENT_URL}/reset-password/${code}`;
+    try {
+        const response = await transport.sendMail({
+            from: sender,
+            to: recipients,
+            subject: "Forgot Password",
+            html: FORGOT_PASSWORD.replace("{hash}", hash),
+            category: "Forgot Password",
+        });
+
         console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {

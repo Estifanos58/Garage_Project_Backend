@@ -1,4 +1,4 @@
-import { LoginService, verifyEmployeeService, sign_service, getUserInfo_service, changePassword_Service } from "../services/Auth.service.js";
+import { LoginService, verifyEmployeeService, sign_service, getUserInfo_service, changePassword_Service, forgotPasswordService } from "../services/Auth.service.js";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const SignController = async (req, res) =>{
@@ -27,6 +27,19 @@ export const changePasswordController = async (req, res) => {
         return sendResponse(response, res);
     } catch (error) {
         return errorInServer("changePassword",error,res);
+    }
+}
+
+export const ForgotController = async (req, res) => {
+    try {
+        const {email} = req.body;
+        if(!email){
+            return fieldsNotFilled(res)
+        }
+        const response = await forgotPasswordService(res, email);
+        return sendResponse(response, res);
+    } catch (error) {
+        return errorInServer("ForgotController",error,res);
     }
 }
 

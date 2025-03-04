@@ -2,8 +2,10 @@ import { User } from "../model/User.js";
 import bcrypt from "bcryptjs";
 import { generateJwtToken } from "../util/jwtToken.js";
 import mongoose from "mongoose";
+import { createHmac } from 'node:crypto'
 import { Customer } from "../model/Customer.js";
 import {
+  ForgotPassword,
   signUpVerificationCode,
 } from "../util/emails.js";
 // import { res } from "../util/emails.js";n
@@ -69,6 +71,45 @@ export const changePassword_Service = async (res, userId, old_password, new_pass
       return {
         success: false,
         message: "Error with the Change Password Service Occured",
+    }
+  }
+}
+
+export const forgotPasswordService = async (res, email) => {
+  try {
+    const user = await User.findOne({email});
+    if(!user) {
+      return {
+        success: false,
+        message: "No user found with the given email",
+      }
+    }
+
+    const hash = createHmac('sha256', process.env.FORGOT_SECRET)
+               .update('I love cupcakes')
+               .digest('hex');
+
+    user.reset_password_token = hash;
+    user.reset_password_expires_at_token = Date.now() * 60 * 60 * 1000;
+    await user.save();
+
+    const response = await ForgotPassword(email, hash);
+    const { success } = response;
+    if(!success) {
+      return {
+        success: false,
+        message: "Error while sending message please check your email",
+      }
+    }
+    return {
+      success: true,
+      message: "Reset password link sent to your email",
+    }
+
+  }catch(error){
+    return {
+      success: false,
+      message: "Error with the Forgot Password Service Occured",
     }
   }
 }

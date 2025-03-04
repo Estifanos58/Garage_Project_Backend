@@ -69,3 +69,25 @@ export const CUSTOMER_PASSWORD = `
 </body>
 </html>
 `
+
+export const FORGOT_PASSWORD = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="max-width: 500px; margin: 10px auto;">
+        <h1 style="text-align: center; color: rgba(6, 89, 130, 0.751); font-family: 'Courier New'; background-color: rgba(0, 0, 0, 0.24); padding: 10px; ">Forget Password</h1>
+        <div style="max-width: 700px; margin: 20px auto;">
+            <p style="margin: 15px 0px; font-family: 'Courier New'; letter-spacing: .5px; font-size: 16px;"> This a message from ABE GARAGE to inform you someone has sent a Forgot Passwrod with your email address. <span style="background-color: rgba(202, 66, 28, 0.63)">If you was not the one who requested it you don't have to do anything. </span></p>
+
+        <a href={hash} style="margin: 30px; font-family: 'Courier New';">This is the link you need to chage you password</a>
+        <p style="font-family: 'Courier New'; font-size: 16px;">You have 1 hour to change your password.</p>
+            
+        </div>
+    </div>
+</body>
+</html> `

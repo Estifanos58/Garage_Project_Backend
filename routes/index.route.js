@@ -1,5 +1,5 @@
 import express from "express";
-import { LoginController , SignController, verifyEmployee, getUserInfo_controller, LogOutController, changePasswordController} from "../controllers/Auth.controller.js";
+import { LoginController , SignController, verifyEmployee, getUserInfo_controller, LogOutController, changePasswordController, ForgotController} from "../controllers/Auth.controller.js";
 import { AddEmployeeController, deleteEmployee_controller, editEmployee_controller, getAllEmployee_controller, getEmployeeById_controller, getEmployeeForWork_controller } from "../controllers/Admin.controller.js";
 import { AddService, deleteService_controller, editService, getAllService_controller } from "../controllers/Service.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
@@ -18,6 +18,7 @@ route.post("/user/verify-password", verifyEmployee);
 route.get("/get-all-service",getAllService_controller);
 route.get("/user/get-userInfo", verifyToken, getUserInfo_controller);
 route.put("/user/change_password",verifyToken, changePasswordController);
+route.post('/user/forgot-password',ForgotController);
 
 // Admin Controllers
     // Admin Employee Controller
