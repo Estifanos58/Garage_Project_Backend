@@ -34,6 +34,45 @@ export const getUserInfo_service = async (email) => {
   }
 }
 
+export const changePassword_Service = async (res, userId, old_password, new_password) => {
+  try {
+    const user = await User.findById(userId);
+    if(!user) {
+      return {
+        success: false,
+        message: "No user found with the given ID",
+      }
+    }
+
+    const existingPass = await bcrypt.compare(old_password, user.password);
+    if(!existingPass) {
+      return {
+        success: false,
+        message: "Wrong Password Used",
+      }
+    }
+
+    const hashedPassword = await bcrypt.hash(new_password, 10);
+    user.password = hashedPassword;
+    user.status = "active";
+    await user.save();
+
+    return {
+      success: true,
+      message: "User password changed successfully",
+      user: {
+        ...user._doc,
+        password: null,
+      },
+    }
+  } catch(error){
+      return {
+        success: false,
+        message: "Error with the Change Password Service Occured",
+    }
+  }
+}
+
 export const LoginService = async (res, email, password) => {
   try {
     const foundUser = await User.findOne({ email });
