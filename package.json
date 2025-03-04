@@ -17,6 +17,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "googleapis": "^146.0.0",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.4.0",
     "mailtrap-sdk": "^1.0.1",

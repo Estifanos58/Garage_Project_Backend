@@ -1,9 +1,11 @@
-import { transport } from "../config/mailtrap.config.js";
-import { sender } from "../config/mailtrap.config.js";
+// import { transport } from "../config/mailtrap.config.js";
+import { transport, sender } from "../config/mail.config.js";
+
+// import { sender } from "../config/mailtrap.config.js";
 import { WELCOME_MESSAGE, PASSWORD_VERIFICATION, CUSTOMER_PASSWORD } from "../config/mailtrap.template.js";
 
 export const sendVerificationPassword = async (email, password, first_name, role) => {
-    const recipients = [email];
+    const recipients = email;
     try {
         const response = await transport.sendMail({
             from: sender,

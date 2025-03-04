@@ -15,13 +15,14 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             const password = Math.floor(100000 + Math.random() * 600000).toString();
             const hashedPassword = await bcrypt.hash(password, 10);
         
-            // const response =  await sendVerificationPassword(email,password,first_name, role)
+            const response =  await sendVerificationPassword(email,password,first_name, role)
             // if(!response.success){
             //     return {
             //         success: false,
             //         message: "Error while sending message please Check you Email again"
             //     }
             // }
+            console.log("RESPONSE: ", response);
 
             const user = new User({
                 first_name,
