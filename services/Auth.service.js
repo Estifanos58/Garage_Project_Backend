@@ -82,10 +82,13 @@ export const RestPasswordService = async (res, new_password, hash) => {
       reset_password_expires_at_token: { $gt: new Date() } // Ensure token is not expired
     });
 
+    
+
     if (!user) {
       return {
         success: false,
         message: "No valid user found with the given token",
+        
       };
     }
 
@@ -123,12 +126,12 @@ export const forgotPasswordService = async (res, email) => {
                .digest('hex');
 
     user.reset_password_token = hash;
-    user.reset_password_expires_at_token = Date.now() * 60 * 60 * 1000;
+    user.reset_password_expires_at_token = new Date(Date.now() + 60 * 60 * 1000); 
     await user.save();
 
     const response = await ForgotPassword(email, hash);
     const accepted = response.accepted;
-    if(accepted === null) {
+    if(accepted === 0) {
       return {
         success: false,
         message: "Error while sending message please check your email",
@@ -140,9 +143,10 @@ export const forgotPasswordService = async (res, email) => {
     }
 
   }catch(error){
+    console.log("Error: ", error);
     return {
       success: false,
-      message: "Error with the Forgot Password Service Occured",
+      message: "Error with the Forgot Password Service Occured"+ error,
     }
   }
 }
