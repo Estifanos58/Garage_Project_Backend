@@ -1,11 +1,13 @@
 import { Order } from "../model/Order.js";
 import { User } from "../model/User.js";
+import { sendOrderConfirmation } from "../util/emails.js";
+import mongoose from 'mongoose'
 
 export const getEmployeeOrders_service = async (userId) => {
     try {
         const orders = await Order.find({
                             employee_id: userId, 
-                            status: { $in: ["Complete", "Received"] } // Include both statuses
+                            status: { $in: ["Completed", "Received"] } // Include both statuses
                                     })
                                     .populate("customer_id", "first_name last_name email phone")
                                     .populate("vehicle_id", "make model year")
@@ -37,7 +39,7 @@ export const getNewOrder_service = async (userId) => {
     try {
         const order = await Order.findOne({
                                     employee_id: userId, 
-                                    status: { $in: "In progress" }
+                                    status: { $in: ["In progress"] }
                                     })
                                     .populate("customer_id", "first_name last_name email phone")
                                     .populate("vehicle_id", "make model year")
@@ -87,7 +89,9 @@ export const getOrderComplete_service = async (userId , orderId, status) => {
                 message: "No order found With the given Id"
             }
         }
-        if(order.employee_id !== userId) {
+
+        
+        if (!order.employee_id._id.equals(user._id)) {  
             return {
                 success: false,
                 message: "You can't change this order"
@@ -99,6 +103,8 @@ export const getOrderComplete_service = async (userId , orderId, status) => {
 
         await order.save();
         await user.save();
+
+        await sendOrderConfirmation(order.customer_id.email, order.customer_id.first_name, order.total);
 
         return {
             success: true,
