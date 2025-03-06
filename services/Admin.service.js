@@ -1,6 +1,6 @@
 import { User } from "../model/User.js"
 import bcrypt from "bcryptjs";
-import { sendVerificationPassword } from "../util/emails.js";
+import { sendVerificationPassword, sendWelcomeMessage } from "../util/emails.js";
 import { Customer } from "../model/Customer.js";
 import { model } from "mongoose";
 
@@ -15,7 +15,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             const password = Math.floor(100000 + Math.random() * 600000).toString();
             const hashedPassword = await bcrypt.hash(password, 10);
         
-            const response =  await sendVerificationPassword(email,password,first_name, role)
+            const response =  await sendWelcomeMessage(email,password,first_name, role)
             // if(!response.success){
             //     return {
             //         success: false,

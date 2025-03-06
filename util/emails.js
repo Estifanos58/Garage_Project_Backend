@@ -2,35 +2,18 @@
 import { transport, sender } from "../config/mail.config.js";
 
 // import { sender } from "../config/mailtrap.config.js";
-import { WELCOME_MESSAGE, PASSWORD_VERIFICATION, CUSTOMER_PASSWORD, FORGOT_PASSWORD, ORDER_CONFIRMATION } from "../config/mailtrap.template.js";
+import { WELCOME_MESSAGE, CUSTOMER_PASSWORD, FORGOT_PASSWORD, ORDER_CONFIRMATION } from "../config/mailtrap.template.js";
 
-export const sendVerificationPassword = async (email, password, first_name, role) => {
-    const recipients = email;
-    try {
-        const response = await transport.sendMail({
-            from: sender,
-            to: recipients,
-            subject: "Welcome to Abe Garage",
-            html: PASSWORD_VERIFICATION.replace("{password}", password),
-            category: "Password change",
-        });
 
-        console.log("Email sent to the user", response);
-        return response;  // ✅ Ensure you return the response
-    } catch (error) {
-        console.error("Error occurred:", error);
-        throw error;  // ✅ Let the calling function handle the error
-    }
-};
 
-export const signUpVerificationCode = async (email, code) => {
+export const sendWelcomeMessage = async (email,password,first_name, role) => {
     const recipients = [email];
     try {
         const response = await transport.sendMail({
             from: sender,
             to: recipients,
             subject: "Welcome to Abe Garage",
-            html: WELCOME_MESSAGE.replace("{password}", code),
+            html: WELCOME_MESSAGE.replace("{password}", password).replace("{name}", first_name).replace("{Position}", role),
             category: "Account Verification",
         });
 
@@ -60,7 +43,7 @@ export const customerAddedPassword = async (email, passwrod) => {
     }
 }
 
-export const ForgotPassword = async (email, code) => {
+export const ForgotPassword = async (email,first_name, hash) => {
     const recipients = [email];
     const hash = `${process.env.CLIENT_URL}/reset-password/${code}`;
     try {
@@ -68,7 +51,7 @@ export const ForgotPassword = async (email, code) => {
             from: sender,
             to: recipients,
             subject: "Forgot Password",
-            html: FORGOT_PASSWORD.replace("{hash}", hash),
+            html: FORGOT_PASSWORD.replace("{rese_link}", hash).replace("{name}", first_name),
             category: "Forgot Password",
         });
 

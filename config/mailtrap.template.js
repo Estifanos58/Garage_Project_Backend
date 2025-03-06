@@ -1,27 +1,80 @@
-export const PASSWORD_VERIFICATION = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div style="max-width: 500px; margin: 10px auto;">
-        <h1 style="text-align: center; color: rgba(6, 130, 6, 0.751); font-family: 'Courier New'; background-color: rgba(0, 0, 0, 0.24); padding: 10px; ">Wellcome !</h1>
-        <div style="max-width: 700px; margin: 20px auto;">
-            <p style="margin: 15px 0px; font-family: 'Courier New'; letter-spacing: .5px; font-size: 16px;"> This is a message from Abe Garage to Inform you that you have be register in our Company
-                and we hope that you will find your time here with us great and hope to see you soon.</p>
-        <p style="font-size: 16px; font-family: 'Courier New';">- The code below is you password and please <span style="color: red; font-weight: bold;">!DON'T SHARE IT</span></p>
-        <div style="margin: 35px auto;padding: 15px; border-radius: 15px; font-size: 25px; text-align: center; background-color: rgba(7, 199, 7, 0.422); width: 150px; color: #fff;">
-            {password}
-        </div>
-        <p style="font-family: 'Courier New'; font-size: 16px;">You have 24 hours to change your password.</p>
-            
-        </div>
-    </div>
-</body>
-</html>`
+// export const PASSWORD_VERIFICATION = `
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <title>Password Reset Request</title>
+//     <style>
+//         body {
+//             font-family: Arial, sans-serif;
+//             background-color: #f4f4f4;
+//             color: #333;
+//             margin: 0;
+//             padding: 0;
+//         }
+//         .container {
+//             max-width: 600px;
+//             margin: 20px auto;
+//             background-color: #fff;
+//             padding: 20px;
+//             border-radius: 8px;
+//             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//             text-align: center;
+//             border-top: 5px solid #d61c1c;
+//         }
+//         .header {
+//             background-color: #065986;
+//             color: white;
+//             padding: 15px;
+//             font-size: 22px;
+//             font-weight: bold;
+//             border-radius: 5px 5px 0 0;
+//         }
+//         .content {
+//             text-align: left;
+//             padding: 20px;
+//             display: flex;
+//             flex-direction: column
+//         }
+//         .highlight {
+//             color: #d61c1c;
+//             font-weight: bold;
+//         }
+//         .code-box {
+//             background-color: #065986;
+//             color: white;
+//             font-size: 22px;
+//             font-weight: bold;
+//             padding: 15px;
+//             border-radius: 10px;
+//             display: inline-block;
+//             margin: 20px auto;
+//         }
+//         .footer {
+//             margin-top: 20px;
+//             font-size: 14px;
+//             color: #555;
+//         }
+//     </style>
+// </head>
+// <body>
+//     <div class="container">
+//         <div class="header">Password Reset Request</div>
+//         <div class="content">
+//             <p>Dear <span class="highlight">{Name}</span>,</p>
+//             <p>We received a request to reset your password for your Abe Garage account. If you made this request, use the code below to reset your password:</p>
+//             <div class="code-box">{password}</div>
+//             <p>If you did not request a password reset, please ignore this email or contact our support team immediately.</p>
+//             <p>For security reasons, this code will expire in <strong>24 hours</strong>. Click the button below to proceed with resetting your password:</p>
+//         </div>
+//         <div class="footer">
+//             <p>Best regards,<br><strong>Abe Garage Team</strong></p>
+//         </div>
+//     </div>
+// </body>
+// </html>
+// >`
 
 export const WELCOME_MESSAGE = `
 <!DOCTYPE html>
@@ -29,24 +82,76 @@ export const WELCOME_MESSAGE = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome to Abe Garage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .code-box {
+            background-color: #065986;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div style="max-width: 500px; margin: 10px auto;">
-        <h1 style="text-align: center; color: rgba(6, 89, 130, 0.751); font-family: 'Courier New'; background-color: rgba(0, 0, 0, 0.24); padding: 10px; ">Greating !</h1>
-        <div style="max-width: 700px; margin: 20px auto;">
-            <p style="margin: 15px 0px; font-family: 'Courier New'; letter-spacing: .5px; font-size: 16px;"> This is a message from Abe Garage to Inform you that you have be register in our Company
-                as a <span style="font-weight: bold;">Customer</span>, We hope you will have a great time with us.</p>
-        <p style="font-size: 16px; font-family: 'Courier New';">- The code below is your <span style="font-weight: bold;">Verification Code</span> and please <span style="color: red; font-weight: bold;">!DON'T SHARE IT</span></p>
-        <div style="margin: 35px auto;padding: 15px; border-radius: 15px; font-size: 25px; text-align: center; background-color: rgba(6, 89, 130, 0.751); width: 150px; color: #fff;">
-            {password}
+    <div class="container">
+        <div class="header">Welcome to Abe Garage</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{name}</span>,</p>
+            <p>We are excited to have you join our team at <strong>Abe Garage</strong>. You have been successfully registered as a <span class="highlight">{Position}</span> in our company.</p>
+            <p>Below is your verification code. Please <span class="highlight">DO NOT SHARE IT</span> with anyone:</p>
+            <div class="code-box">{password}</div>
+            <p>You have <strong>24 hours</strong> to update your password.</p>
+            <p>If you have any questions, feel free to reach out to our support team.</p>
         </div>
-        <p style="font-family: 'Courier New'; font-size: 16px;">You have 24 hours to change your password.</p>
-            
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage Team</strong></p>
         </div>
     </div>
 </body>
-</html>`
+</html>
+`
 
 export const CUSTOMER_PASSWORD = `
 <!DOCTYPE html>
@@ -54,17 +159,74 @@ export const CUSTOMER_PASSWORD = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome to Abe Garage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .code-box {
+            background-color: #065986;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px auto;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div style="max-width: 500px; margin: 10px auto;">
-        <h1 style="text-align: center; color: rgba(6, 89, 130, 0.751); font-family: 'Courier New'; background-color: rgba(0, 0, 0, 0.24); padding: 10px; ">Greating !</h1>
-        <div style="max-width: 700px; margin: 20px auto;">
-            <p style="margin: 15px 0px; font-family: 'Courier New'; letter-spacing: .5px; font-size: 16px;"> This is a message from Abe Garage to Inform you that you have be register in our Company
-                as a <span style="font-weight: bold;">Customer</span>, We hope you will have a great time with us.</p>
-        <p style="font-size: 16px; font-family: 'Courier New';">- The code below is your <span style="font-weight: bold;">Password</span> and please <span style="color: red; font-weight: bold;">!DON'T SHARE IT</span></p>
-        <div style="margin: 35px auto;padding: 15px; border-radius: 15px; font-size: 25px; text-align: center; background-color: rgba(6, 89, 130, 0.751); width: 150px; color: #fff;">
-            {password}
+    <div class="container">
+        <div class="header">Welcome to Abe Garage</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{Customer Name}</span>,</p>
+            <p>We are excited to welcome you to <strong>Abe Garage</strong>. You have been successfully registered as a valued customer. We look forward to providing you with the best car maintenance services.</p>
+            <p>Below is your account password. Please <span class="highlight">DO NOT SHARE IT</span> with anyone:</p>
+            <div class="code-box">{password}</div>
+            <p>For security reasons, we recommend changing your password within <strong>24 hours</strong>.</p>
+            <p>If you have any questions, feel free to reach out to our support team.</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage Team</strong></p>
+        </div>
     </div>
 </body>
 </html>
@@ -76,21 +238,76 @@ export const FORGOT_PASSWORD = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reset Your Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            background-color: #d61c1c;
+            color: white;
+            padding: 10px 20px;
+            width: 120px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 20px 0; 
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div style="max-width: 500px; margin: 10px auto;">
-        <h1 style="text-align: center; color: rgba(6, 89, 130, 0.751); font-family: 'Courier New'; background-color: rgba(0, 0, 0, 0.24); padding: 10px; ">Forget Password</h1>
-        <div style="max-width: 700px; margin: 20px auto;">
-            <p style="margin: 15px 0px; font-family: 'Courier New'; letter-spacing: .5px; font-size: 16px;"> This a message from ABE GARAGE to inform you someone has sent a Forgot Passwrod with your email address. <span style="background-color: rgba(202, 66, 28, 0.63)">If you was not the one who requested it you don't have to do anything. </span></p>
-
-        <a href={hash} style="margin: 30px; font-family: 'Courier New';">This is the link you need to chage you password</a>
-        <p style="font-family: 'Courier New'; font-size: 16px;">You have 1 hour to change your password.</p>
-            
+    <div class="container">
+        <div class="header">Reset Your Password</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{Name}</span>,</p>
+            <p>We received a request to reset your password for your Abe Garage account. If you made this request, click the link below to reset your password:</p>
+            <p><a href="{reset_link}" class="button">Reset Password</a></p>
+            <p>If you did not request a password reset, <span class="highlight">no action is required</span>. Your account remains secure.</p>
+            <p>For security reasons, this link will expire in <strong>1 hour</strong>.</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage Team</strong></p>
         </div>
     </div>
 </body>
-</html> `
+</html>
+ `
 
 export const ORDER_CONFIRMATION = `
 <!DOCTYPE html>
