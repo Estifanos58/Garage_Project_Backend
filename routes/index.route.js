@@ -7,7 +7,7 @@ import { Autherize } from "../middleware/Autherize.js";
 import { addVehicle_controller, editVehicle_controller, getAllVehicle_cotroller } from "../controllers/Vehicle.controller.js";
 import { addCustomer_constroller, getAllCustomer_controller, getCustomerById_controller, deleteCustomer_controller, editCustomer_controller, searchCustomer_controller } from "../controllers/Customer.controller.js";
 import { addOrder_controller, editOrder_controller, getAllOrder_controller } from "../controllers/Order.controller.js";
-import { getEmployeeOrders_controller, getNewOrder_controller } from "../controllers/Employee.controller.js";
+import { completeOrder_controller, getEmployeeOrders_controller, getNewOrder_controller } from "../controllers/Employee.controller.js";
 
 export const route = express.Router();
 
@@ -25,6 +25,7 @@ route.post('/auth/resetpassword/:hash', ResetPasswordController);
 //Employee Controllers
 route.get('/user/get-orders', verifyToken, getEmployeeOrders_controller);
 route.get('/user/get-new-order', verifyToken, getNewOrder_controller);
+route.put('/user/complete-order', verifyToken, completeOrder_controller);
 
 // Admin Controllers
     // Admin Employee Controller
