@@ -6,7 +6,6 @@ import { createHmac } from 'node:crypto'
 import { Customer } from "../model/Customer.js";
 import {
   ForgotPassword,
-  signUpVerificationCode,
 } from "../util/emails.js";
 // import { res } from "../util/emails.js";n
 

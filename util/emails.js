@@ -43,7 +43,7 @@ export const customerAddedPassword = async (email, passwrod) => {
     }
 }
 
-export const ForgotPassword = async (email,first_name, hash) => {
+export const ForgotPassword = async (email,first_name, code) => {
     const recipients = [email];
     const hash = `${process.env.CLIENT_URL}/reset-password/${code}`;
     try {

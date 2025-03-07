@@ -98,7 +98,7 @@ export const ResetPasswordController = async (req, res) => {
 export const LogOutController = async (req, res) => {
     try {
         res.clearCookie("token", {
-            httpOnly: true, // ✅ Ensures cookie is cleared properly
+            // httpOnly: true, // ✅ Ensures cookie is cleared properly
             sameSite: "lax", // ✅ Ensures cross-origin compatibility
             secure: process.env.NODE_ENV === "production", // ✅ Must be `false` in development
         });

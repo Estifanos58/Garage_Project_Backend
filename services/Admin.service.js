@@ -1,16 +1,15 @@
 import { User } from "../model/User.js"
 import bcrypt from "bcryptjs";
-import { sendVerificationPassword, sendWelcomeMessage } from "../util/emails.js";
-import { Customer } from "../model/Customer.js";
-import { model } from "mongoose";
+import {sendWelcomeMessage } from "../util/emails.js";
+import { Order } from "../model/Order.js";
 
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
     try {
-            // const existingUser = await User.findOne({email});
-            // if(existingUser) return {
-            //     success: false,
-            //     message: "user with the given ID lready exist"
-            // }
+            const existingUser = await User.findOne({email});
+            if(existingUser) return {
+                success: false,
+                message: "user with the given ID lready exist"
+            }
             // generated password
             const password = Math.floor(100000 + Math.random() * 600000).toString();
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -95,11 +94,19 @@ export const editEmployeeService = async (id,first_name,last_name,email,phone,ro
 
 export const deleteEmployee_service = async (id) =>{
     try {
-            const user = await User.findByIdAndDelete(id);
+            const user = await User.findById(id);
             if(!user) return {
                 success: false,
                 message: "User not found"
             }
+            const order = await Order.find({employee_id: id});
+            if(order) {
+                return {
+                    success: false,
+                    message: "Employee Has a Task Assigned To It."
+                }
+            }
+            await User.findByIdAndDelete(id);
 
             return {
                 success: true,
