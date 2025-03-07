@@ -1,4 +1,4 @@
-import { addOrder_service, editOrder_service, getAllOrder_service } from "../services/Order.service.js";
+import { addOrder_service, deleteOrder_service, editOrder_service, getAllOrder_service } from "../services/Order.service.js";
 import { errorInServer, fieldsNotFilled, sendResponse } from "../util/response.js";
 
 export const addOrder_controller = async (req, res) => {
@@ -38,5 +38,19 @@ export const getAllOrder_controller = async (req, res) => {
         return sendResponse(response,res);
     } catch (error) {
         return errorInServer("getAllOrder",error,res);
+    }
+}
+
+export const deleteOrder_controller = async (req,res) => {
+    try{
+        const {order_id} = req.body;
+        if(!order_id) {
+            return fieldsNotFilled(res);
+        }
+
+        const response = await deleteOrder_service(order_id);
+        return sendResponse(response, res);
+    }catch(error) {
+        return errorInServer("deleteOrder_controller ", error, res);
     }
 }

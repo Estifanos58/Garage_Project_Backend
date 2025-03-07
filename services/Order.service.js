@@ -93,8 +93,6 @@ export const editOrder_service = async (employee_id, order_id) => {
     }
 };
 
-
-
 export const getAllOrder_service = async () => {
     try {
         const allOrders = await Order.find()
@@ -117,3 +115,48 @@ export const getAllOrder_service = async () => {
         return { success: false, message: "Internal Server Error" };
     }
 };
+
+export const deleteOrder_service = async (order_id) => {
+    try {
+        const order = await Order.findById(order_id);
+        if (!order) {
+            return {
+                success: false,
+                message: "No Order found with this ID",
+            };
+        }
+
+        // Ensure that employee_id exists in the order
+        if (!order.employee_id) {
+            return {
+                success: false,
+                message: "Order does not have an associated employee",
+            };
+        }
+
+        // Fetch the user using the correct reference type
+        // const user = await User.findById(order.employee_id.toString());
+        // if (!user) {
+        //     return {
+        //         success: false,
+        //         message: "No User found with the given ID",
+        //     };
+        // }
+
+        // // Update the user's occupied status
+        // user.occupied = false;
+        // await user.save();
+
+        // Delete the order
+        await Order.findByIdAndDelete(order_id);
+
+        return {
+            success: true,
+            message: "Order deleted successfully",
+        };
+    } catch (error) {
+        console.error("deleteOrder_Service Error:", error);
+        return { success: false, message: "Internal Server Error" };
+    }
+};
+
