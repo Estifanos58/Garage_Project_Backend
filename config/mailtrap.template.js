@@ -1,80 +1,4 @@
-// export const PASSWORD_VERIFICATION = `
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Password Reset Request</title>
-//     <style>
-//         body {
-//             font-family: Arial, sans-serif;
-//             background-color: #f4f4f4;
-//             color: #333;
-//             margin: 0;
-//             padding: 0;
-//         }
-//         .container {
-//             max-width: 600px;
-//             margin: 20px auto;
-//             background-color: #fff;
-//             padding: 20px;
-//             border-radius: 8px;
-//             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-//             text-align: center;
-//             border-top: 5px solid #d61c1c;
-//         }
-//         .header {
-//             background-color: #065986;
-//             color: white;
-//             padding: 15px;
-//             font-size: 22px;
-//             font-weight: bold;
-//             border-radius: 5px 5px 0 0;
-//         }
-//         .content {
-//             text-align: left;
-//             padding: 20px;
-//             display: flex;
-//             flex-direction: column
-//         }
-//         .highlight {
-//             color: #d61c1c;
-//             font-weight: bold;
-//         }
-//         .code-box {
-//             background-color: #065986;
-//             color: white;
-//             font-size: 22px;
-//             font-weight: bold;
-//             padding: 15px;
-//             border-radius: 10px;
-//             display: inline-block;
-//             margin: 20px auto;
-//         }
-//         .footer {
-//             margin-top: 20px;
-//             font-size: 14px;
-//             color: #555;
-//         }
-//     </style>
-// </head>
-// <body>
-//     <div class="container">
-//         <div class="header">Password Reset Request</div>
-//         <div class="content">
-//             <p>Dear <span class="highlight">{Name}</span>,</p>
-//             <p>We received a request to reset your password for your Abe Garage account. If you made this request, use the code below to reset your password:</p>
-//             <div class="code-box">{password}</div>
-//             <p>If you did not request a password reset, please ignore this email or contact our support team immediately.</p>
-//             <p>For security reasons, this code will expire in <strong>24 hours</strong>. Click the button below to proceed with resetting your password:</p>
-//         </div>
-//         <div class="footer">
-//             <p>Best regards,<br><strong>Abe Garage Team</strong></p>
-//         </div>
-//     </div>
-// </body>
-// </html>
-// >`
+
 
 export const WELCOME_MESSAGE = `
 <!DOCTYPE html>
@@ -351,4 +275,68 @@ export const ORDER_CONFIRMATION = `
 </body>
 </html>
 
+`
+export const EMPLOYEE_FIRED = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employment Status Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Employment Status Update</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{name}</span>,</p>
+            <p>We regret to inform you that, effective immediately, your employment with <strong>Abe Garage</strong> has been terminated. This decision was made after careful consideration and aligns with company policies and operational needs.</p>
+            <p>Please return any company property in your possession, including but not limited to keys, ID badges, and equipment, by <strong>{date}</strong>. If you have any questions regarding final payments, benefits, or exit procedures, please contact <strong>estifkebe08@gmail.com</strong>.</p>
+            <p>We appreciate your contributions to the company and wish you the best in your future endeavors.</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage HR Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>
 `

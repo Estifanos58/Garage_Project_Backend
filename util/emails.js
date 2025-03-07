@@ -2,7 +2,7 @@
 import { transport, sender } from "../config/mail.config.js";
 
 // import { sender } from "../config/mailtrap.config.js";
-import { WELCOME_MESSAGE, CUSTOMER_PASSWORD, FORGOT_PASSWORD, ORDER_CONFIRMATION } from "../config/mailtrap.template.js";
+import { WELCOME_MESSAGE, CUSTOMER_PASSWORD, FORGOT_PASSWORD, ORDER_CONFIRMATION, EMPLOYEE_FIRED } from "../config/mailtrap.template.js";
 
 
 
@@ -72,6 +72,26 @@ export const sendOrderConfirmation = async (email, name, total) => {
             subject: "Order Complete",
             html: ORDER_CONFIRMATION.replace("{Price}", total).replace("{name}", name),
             category: "Order Complete",
+        });
+
+        console.log("Email sent to the user", response);
+        return response;  // ✅ Ensure you return the response
+    } catch (error) {
+        console.error("Error occurred:", error);
+        throw error;  // ✅ Let the calling function handle the error
+    }
+}
+
+export const EmployeeFired = async (email,name) => {
+    const recipients = [email];
+    const date = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    try {
+        const response = await transport.sendMail({
+            from: sender,
+            to: recipients,
+            subject: "You have been fired",
+            html: EMPLOYEE_FIRED.replace("{date}", date).replace("{name}", name),
+            category: "Employee Fired",
         });
 
         console.log("Email sent to the user", response);

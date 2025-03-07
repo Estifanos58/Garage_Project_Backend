@@ -1,6 +1,6 @@
 import { User } from "../model/User.js"
 import bcrypt from "bcryptjs";
-import {sendWelcomeMessage } from "../util/emails.js";
+import {EmployeeFired, sendWelcomeMessage } from "../util/emails.js";
 import { Order } from "../model/Order.js";
 
 export const AddEmployeeService = async (first_name,last_name,email,phone,role)=> {
@@ -99,13 +99,15 @@ export const deleteEmployee_service = async (id) =>{
                 success: false,
                 message: "User not found"
             }
-            const order = await Order.find({employee_id: id});
+            const order = await Order.findOne({employee_id: id});
+            console.log("ORDER: ", order);
             if(order) {
                 return {
                     success: false,
                     message: "Employee Has a Task Assigned To It."
                 }
             }
+            await EmployeeFired(user.email, user.first_name);
             await User.findByIdAndDelete(id);
 
             return {
