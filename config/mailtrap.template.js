@@ -415,3 +415,81 @@ export const WELLCOME_CUSTOMER = `
 </body>
 </html>
 ` 
+
+export const CUSTOMER_VEHICLE = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Vehicle Added to Your Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .vehicle-info {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">New Vehicle Added</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{first_name} {last_name}</span>,</p>
+            <p>We’re excited to inform you that a new vehicle has been successfully added to your collection at <strong>Abe Garage</strong>.</p>
+            <div class="vehicle-info">
+                <p><strong>Year:</strong> {year}</p>
+                <p><strong>Make:</strong> {make}</p>
+                <p><strong>Model:</strong> {model}</p>
+                <p><strong>Type:</strong> {type}</p>
+                <p><strong>Mileage:</strong> {mileage} miles</p>
+                <p><strong>Color:</strong> {color}</p>
+                <p><strong>Tag:</strong> {tag}</p>
+                <p><strong>Serial Number:</strong> {serial_number}</p>
+            </div>
+            <p>If you have any questions, feel free to contact our support team.</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>`

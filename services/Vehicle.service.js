@@ -1,5 +1,7 @@
 import { Customer } from "../model/Customer.js"
 import { Vehicle } from "../model/Vehicle.js";
+import { SendCustomerVehicle } from "../util/emails.js";
+import { searchCustomer_service } from "./Customer.service.js";
 
 export const addVehicle_service = async (customer_id, year, make, model,type, mileage, tag, serial_number, color) =>{
     try {
@@ -12,7 +14,10 @@ export const addVehicle_service = async (customer_id, year, make, model,type, mi
         }
 
         const vehicle = new Vehicle({customer_id, year,make,model,type,mileage,tag,serial_number,color});
-        
+
+
+
+        await SendCustomerVehicle(customer.email, customer.first_name, customer.last_name ,vehicle.year, vehicle.make, vehicle.model, vehicle.type, vehicle.mileage, vehicle.tag, vehicle.serial_number, vehicle.color);
         await vehicle.save();
         
         return {
