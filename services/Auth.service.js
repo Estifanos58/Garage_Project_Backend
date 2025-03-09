@@ -100,6 +100,10 @@ export const RestPasswordService = async (res, new_password, hash) => {
     return {
       success: true,
       message: "Password reset successfully",
+      data: {
+        ...user._doc,
+        password: null,
+      }
     };
   } catch (error) {
     return {

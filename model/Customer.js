@@ -12,11 +12,7 @@ const customerSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-    },
-    password: {
-        type: String,
-        required: true
-    },
+    }, 
     phone: {
         type: String,
     },
@@ -28,10 +24,6 @@ const customerSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    reset_password_token: String,
-    reset_password_expires_at_token: String,
-    verification_code: String,
-    verification_expires_at: String,
     hashed_link: String,
 })
 

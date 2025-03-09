@@ -1,9 +1,9 @@
 import { Customer } from "../model/Customer.js";
-import bcrypt from "bcryptjs";
-import { customerAddedPassword } from "../util/emails.js";
+// import bcrypt from "bcryptjs";
+import { customerWellcome} from "../util/emails.js";
 
 
-export const addCustomer_service = async (email,first_name,last_name,phone, status) => {
+export const addCustomer_service = async (email,first_name,last_name,phone) => {
     try {
             const existingUser = await Customer.findOne({email});
             
@@ -11,17 +11,9 @@ export const addCustomer_service = async (email,first_name,last_name,phone, stat
                 success: false,
                 message: "User with this email already exists"
             }
-            
-            const password = Math.floor(100000 + Math.random() * 900000).toString();
 
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            // const response = await customerAddedPassword(email, password);
-            // if(!response.success) return {
-            //     success: false,
-            //     message: "Error while sending message check your Email"
-            // }
-            const user = new Customer({first_name,last_name,email,password: hashedPassword,phone });
+            const response = await  customerWellcome(email, first_name, last_name);
+            const user = new Customer({first_name,last_name,email,phone });
         
             await user.save();
 

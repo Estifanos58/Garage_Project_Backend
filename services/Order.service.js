@@ -135,17 +135,17 @@ export const deleteOrder_service = async (order_id) => {
         }
 
         // Fetch the user using the correct reference type
-        // const user = await User.findById(order.employee_id.toString());
-        // if (!user) {
-        //     return {
-        //         success: false,
-        //         message: "No User found with the given ID",
-        //     };
-        // }
+        const user = await User.findById(order.employee_id.toString());
+        if (!user) {
+            return {
+                success: false,
+                message: "No User found with the given ID",
+            };
+        }
 
-        // // Update the user's occupied status
-        // user.occupied = false;
-        // await user.save();
+        // Update the user's occupied status
+        user.occupied = false;
+        await user.save();
 
         // Delete the order
         await Order.findByIdAndDelete(order_id);

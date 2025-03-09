@@ -113,8 +113,6 @@ export const CUSTOMER_PASSWORD = `
         .content {
             text-align: left;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
         }
         .highlight {
             color: #d61c1c;
@@ -141,7 +139,7 @@ export const CUSTOMER_PASSWORD = `
     <div class="container">
         <div class="header">Welcome to Abe Garage</div>
         <div class="content">
-            <p>Dear <span class="highlight">{Customer Name}</span>,</p>
+            <p>Dear <span class="highlight">{name}</span>,</p>
             <p>We are excited to welcome you to <strong>Abe Garage</strong>. You have been successfully registered as a valued customer. We look forward to providing you with the best car maintenance services.</p>
             <p>Below is your account password. Please <span class="highlight">DO NOT SHARE IT</span> with anyone:</p>
             <div class="code-box">{password}</div>
@@ -200,13 +198,14 @@ export const FORGOT_PASSWORD = `
         .button {
             display: inline-block;
             background-color: #d61c1c;
-            color: white;
             padding: 10px 20px;
             width: 120px;
             text-decoration: none;
             font-size: 16px;
             border-radius: 5px;
-            margin: 20px 0; 
+            margin: 20px auto; 
+            cursor: pointer;
+            text-decoration: none;
         }
         .footer {
             margin-top: 20px;
@@ -221,7 +220,7 @@ export const FORGOT_PASSWORD = `
         <div class="content">
             <p>Dear <span class="highlight">{Name}</span>,</p>
             <p>We received a request to reset your password for your Abe Garage account. If you made this request, click the link below to reset your password:</p>
-            <p><a href="{reset_link}" class="button">Reset Password</a></p>
+            <a href="{reset_link}" class="button" style="color: #fff;">Reset Password</a>
             <p>If you did not request a password reset, <span class="highlight">no action is required</span>. Your account remains secure.</p>
             <p>For security reasons, this link will expire in <strong>1 hour</strong>.</p>
         </div>
@@ -340,3 +339,79 @@ export const EMPLOYEE_FIRED = `
 </body>
 </html>
 `
+
+export const WELLCOME_CUSTOMER = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Abe Garage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #d61c1c;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Welcome to Abe Garage</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{first_name} {last_name}</span>,</p>
+            <p>Welcome to <strong>Abe Garage</strong>! We are thrilled to have you as part of our community. Your registration as a valued customer is now complete, and we look forward to serving you with our top-tier car maintenance and repair services.</p>
+            <p>You can explore our services, book appointments, and stay updated on the latest offers.</p>
+            <a href="{website_url}" class="button" style="color: #fff;"> Visit Our Website</a>
+            <p>If you need assistance, our support team is available to help.</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>
+` 

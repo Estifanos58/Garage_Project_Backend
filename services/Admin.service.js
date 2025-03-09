@@ -99,7 +99,7 @@ export const deleteEmployee_service = async (id) =>{
                 success: false,
                 message: "User not found"
             }
-            const order = await Order.findOne({employee_id: id});
+            const order = await Order.findOne({employee_id: id, status: { $in: ["In progress"] }});
             console.log("ORDER: ", order);
             if(order) {
                 return {

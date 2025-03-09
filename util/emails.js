@@ -2,7 +2,7 @@
 import { transport, sender } from "../config/mail.config.js";
 
 // import { sender } from "../config/mailtrap.config.js";
-import { WELCOME_MESSAGE, CUSTOMER_PASSWORD, FORGOT_PASSWORD, ORDER_CONFIRMATION, EMPLOYEE_FIRED } from "../config/mailtrap.template.js";
+import { WELCOME_MESSAGE, WELLCOME_CUSTOMER, FORGOT_PASSWORD, ORDER_CONFIRMATION, EMPLOYEE_FIRED } from "../config/mailtrap.template.js";
 
 
 
@@ -25,15 +25,16 @@ export const sendWelcomeMessage = async (email,password,first_name, role) => {
     }
 };
 
-export const customerAddedPassword = async (email, passwrod) => {
+export const customerWellcome = async (email, first_name, last_name) => {
     const recipients = [email];
+    const baseUrl = process.env.CLIENT_URL;
     try {
         const response = await transport.sendMail({
             from: sender,
             to: recipients,
-            subject: "Your Password",
-            html: CUSTOMER_PASSWORD.replace("{password}", passwrod),
-            category: "Use this password"
+            subject: "Welcome to Abe Garage",
+            html: WELLCOME_CUSTOMER.replace("{website_url}", baseUrl).replace("{first_name}",first_name).replace("{last_name}", last_name),
+            category: "Your newly created account"
         })
         console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
@@ -51,7 +52,7 @@ export const ForgotPassword = async (email,first_name, code) => {
             from: sender,
             to: recipients,
             subject: "Forgot Password",
-            html: FORGOT_PASSWORD.replace("{rese_link}", hash).replace("{name}", first_name),
+            html: FORGOT_PASSWORD.replace("{reset_link}", hash).replace("{Name}", first_name),
             category: "Forgot Password",
         });
 
