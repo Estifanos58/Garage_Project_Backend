@@ -2,10 +2,12 @@ import { Customer } from "../model/Customer.js";
 import { Order } from "../model/Order.js";
 import { User } from "../model/User.js";
 import { Vehicle } from "../model/Vehicle.js";
+import { Service } from "../model/Service.js";
 import { errorInServer } from "../util/response.js";
 import mongoose from "mongoose";
+import { Order_received } from "../util/emails.js";
 
-export const addOrder_service = async (userId, customer_id, vehicle_id, services, total) => {
+export const addOrder_service = async (userId, customer_id, vehicle_id, services, total) => {``
     try {
         const user = await User.findById(userId);
         if (!user) {
@@ -29,7 +31,9 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
         // Ensure services are in the correct format (array of objects)
         const formattedServices = services.map(serviceId => ({
             service_id: new mongoose.Types.ObjectId(serviceId) // Convert to ObjectId
-        }));
+        })) 
+
+        // console.log(formattedServices);
 
         const order = new Order({
             customer_id,
@@ -39,6 +43,14 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
             status: "pending",
             total,
         });
+
+        const servicesCollection = await Service.find(  
+            { _id: { $in: services } },  
+            'name description' // This specifies the fields to return  
+          ); 
+        console.log(servicesCollection);    
+        
+        await Order_received(customer.email, customer.first_name, customer.last_name, servicesCollection);
 
         await order.save();
 

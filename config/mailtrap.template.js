@@ -493,3 +493,36 @@ export const CUSTOMER_VEHICLE = `<!DOCTYPE html>
     </div>
 </body>
 </html>`
+
+export const ORDER_TEMPLATE = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Abe Garage Order Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; border-top: 5px solid #d61c1c; }
+        .header { background-color: #065986; color: white; padding: 15px; font-size: 22px; font-weight: bold; border-radius: 5px 5px 0 0; }
+        .content { text-align: left; padding: 20px; }
+        .highlight { color: #d61c1c; font-weight: bold; }
+        .order-list { background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .order-item { margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #ddd; }
+        .footer { margin-top: 20px; font-size: 14px; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Your Order Summary</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{first_name} {last_name}</span>,</p>
+            <p>Thank you for your recent order with <strong>Abe Garage</strong>. Below is the summary of your requested services:</p>
+            <div class="order-list">{ordersList}</div>
+            <p>If you have any questions about your order, feel free to reach out to our support team.</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br><strong>Abe Garage Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>`;

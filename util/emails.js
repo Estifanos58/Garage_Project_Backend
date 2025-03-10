@@ -2,7 +2,7 @@
 import { transport, sender } from "../config/mail.config.js";
 
 // import { sender } from "../config/mailtrap.config.js";
-import { WELCOME_MESSAGE, WELLCOME_CUSTOMER, FORGOT_PASSWORD, ORDER_CONFIRMATION, EMPLOYEE_FIRED, CUSTOMER_VEHICLE } from "../config/mailtrap.template.js";
+import { WELCOME_MESSAGE, WELLCOME_CUSTOMER, FORGOT_PASSWORD, ORDER_CONFIRMATION, EMPLOYEE_FIRED, CUSTOMER_VEHICLE, ORDER_TEMPLATE } from "../config/mailtrap.template.js";
 
 
 
@@ -112,6 +112,31 @@ export const SendCustomerVehicle = async (email, first_name,last_name, year, mak
             subject: "A NEW VEHICLE IS ADDED",
             html: CUSTOMER_VEHICLE.replace("{first_name}",first_name).replace("{last_name}",last_name).replace("{year}",year).replace("{make}",make).replace("{model}",model).replace("{type}",type).replace("{mileage}",mileage).replace("{tag}",tag).replace("{serial_number}", serial_number).replace("{color}",color),
             category: "NEW VEHICLE ADDED",
+        });
+
+        console.log("Email sent to the user", response);
+        return response;  // ✅ Ensure you return the response
+    } catch (error) {
+        console.error("Error occurred:", error);
+        throw error;  // ✅ Let the calling function handle the error
+    }
+}
+
+export const Order_received = async (email,first_name, last_name, orders) => {
+    const recipients = [email];
+    const ordersHtml = orders.map(order => `
+        <div class="order-item">
+            <p><strong>Name:</strong> ${order.name}</p>
+            <p><strong>Description:</strong> ${order.description}</p>
+        </div>
+    `).join("\n");
+    try {
+        const response = await transport.sendMail({
+            from: sender,
+            to: recipients,
+            subject: "You have been fired",
+            html: ORDER_TEMPLATE.replace("{first_name}", first_name).replace("{last_name}", last_name).replace("{ordersList}", ordersHtml),
+            category: "Employee Fired",
         });
 
         console.log("Email sent to the user", response);
