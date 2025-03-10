@@ -50,7 +50,7 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
           ); 
         console.log(servicesCollection);    
         
-        await Order_received(customer.email, customer.first_name, customer.last_name, servicesCollection);
+        await Order_received(customer.email, customer.first_name, customer.last_name, servicesCollection, total);
 
         await order.save();
 

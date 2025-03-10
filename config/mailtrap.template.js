@@ -234,45 +234,85 @@ export const FORGOT_PASSWORD = `
 
 export const ORDER_CONFIRMATION = `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Repair Invoice - ABE GARAGE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 5px solid #d61c1c;
+        }
+        .header {
+            background-color: #065986;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            text-align: left;
+            padding: 20px;
+        }
+        .highlight {
+            color: #d61c1c;
+            font-weight: bold;
+        }
+        .order-list {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .order-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: rgb(240, 240, 240);">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width: 600px; background-color: rgb(255, 255, 255); font-family: Arial, sans-serif;">
-        <tr>
-            <td style="background-color: rgb(200, 220, 255); color: rgb(220, 50, 50); padding: 20px; text-align: center; font-size: 24px; font-weight: bold;">
-                ABE GARAGE
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 20px; text-align: left;">
-                <p style="font-size: 18px; color: rgb(50, 50, 50);">Dear <strong>{name}</strong>,</p>
-                <p style="font-size: 16px; color: rgb(80, 80, 80);">We have completed the repairs on your vehicle. Below is a summary of the service:</p>
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="10" border="0" style="border-collapse: collapse;">
-                    <tr style="background-color: rgb(230, 230, 230);">
-                        <td style="font-weight: bold; color: rgb(50, 50, 50);">Service Description</td>
-                        <td style="font-weight: bold; color: rgb(50, 50, 50); text-align: right;">Cost</td>
-                    </tr>
-                    <tr>
-                        <td>Car Repair & Maintenance</td>
-                        <td style="text-align: right; color: rgb(220, 50, 50);"><strong>{Price}</strong></td>
-                    </tr>
-                </table>
-                <p style="font-size: 16px; color: rgb(80, 80, 80);">If you have any questions or need further assistance, feel free to contact us.</p>
-                <p style="font-size: 16px; color: rgb(80, 80, 80);">Thank you for choosing <strong>ABE GARAGE</strong>!</p>
-            </td>
-        </tr>
-        <tr>
-            <td style="background-color: rgb(200, 220, 255); color: rgb(50, 50, 50); text-align: center; padding: 15px; font-size: 14px;">
-                Contact us: <a href="mailto:support@abegarage.com" style="color: rgb(255, 100, 100); text-decoration: none;">support@abegarage.com</a> | Phone: +123 456 7890
-            </td>
-        </tr>
-    </table>
+<body>
+    <div class="container">
+        <div class="header">ABE GARAGE</div>
+        <div class="content">
+            <p>Dear <span class="highlight">{name}</span>,</p>
+            <p>We have completed the repairs on your vehicle. Below is a summary of the service:</p>
+            <div class="order-list">
+                <div class="order-item">
+                    <p><strong>Service Description:</strong> Car Repair & Maintenance</p>
+                    <p><strong>Cost:</strong> <span class="highlight">{Price}</span></p>
+                </div>
+            </div>
+            <p>If you have any questions or need further assistance, feel free to contact us.</p>
+            <p>Thank you for choosing <strong>ABE GARAGE</strong>!</p>
+        </div>
+        <div class="footer">
+            <p>Contact us: <a href="mailto:support@abegarage.com" style="color: #d61c1c; text-decoration: none;">support@abegarage.com</a> | Phone: +123 456 7890</p>
+        </div>
+    </div>
 </body>
 </html>
+
 
 `
 export const EMPLOYEE_FIRED = `
@@ -518,6 +558,7 @@ export const ORDER_TEMPLATE = `<!DOCTYPE html>
             <p>Dear <span class="highlight">{first_name} {last_name}</span>,</p>
             <p>Thank you for your recent order with <strong>Abe Garage</strong>. Below is the summary of your requested services:</p>
             <div class="order-list">{ordersList}</div>
+            <p>your total cost is <strong>{cost}</strong></p>
             <p>If you have any questions about your order, feel free to reach out to our support team.</p>
         </div>
         <div class="footer">

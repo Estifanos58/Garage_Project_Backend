@@ -122,7 +122,7 @@ export const SendCustomerVehicle = async (email, first_name,last_name, year, mak
     }
 }
 
-export const Order_received = async (email,first_name, last_name, orders) => {
+export const Order_received = async (email,first_name, last_name, orders, cost) => {
     const recipients = [email];
     const ordersHtml = orders.map(order => `
         <div class="order-item">
@@ -134,9 +134,9 @@ export const Order_received = async (email,first_name, last_name, orders) => {
         const response = await transport.sendMail({
             from: sender,
             to: recipients,
-            subject: "You have been fired",
-            html: ORDER_TEMPLATE.replace("{first_name}", first_name).replace("{last_name}", last_name).replace("{ordersList}", ordersHtml),
-            category: "Employee Fired",
+            subject: "You Order",
+            html: ORDER_TEMPLATE.replace("{first_name}", first_name).replace("{last_name}", last_name).replace("{ordersList}", ordersHtml).replace("{cost}",cost),
+            category: "Order received",
         });
 
         console.log("Email sent to the user", response);
