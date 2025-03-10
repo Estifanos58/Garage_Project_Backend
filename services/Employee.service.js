@@ -11,7 +11,7 @@ export const getEmployeeOrders_service = async (userId) => {
                                     })
                                     .populate("customer_id", "first_name last_name email phone")
                                     .populate("vehicle_id", "make model year")
-                                    .populate("services.service_id", "name price description")
+                                    .populate("services", "name price description")
                                     .select("customer_id vehicle_id services status total createdAt updatedAt")
 
         if(!orders) {
@@ -43,7 +43,7 @@ export const getNewOrder_service = async (userId) => {
                                     })
                                     .populate("customer_id", "first_name last_name email phone")
                                     .populate("vehicle_id", "make model year")
-                                    .populate("services.service_id", "name price description")
+                                    .populate("services", "name price description")
                                     .select("customer_id vehicle_id services status total createdAt updatedAt")
 
         if(!order) {
@@ -80,7 +80,7 @@ export const getOrderComplete_service = async (userId , orderId, status) => {
                                 .populate("customer_id", "first_name last_name email phone")
                                 .populate("vehicle_id", "make model year")
                                 .populate("employee_id", "first_name last_name")
-                                .populate("services.service_id", "name price description") // Fix: Correct way to populate subdocuments
+                                .populate("services", "name price description") // Fix: Correct way to populate subdocuments
                                 .select("customer_id vehicle_id employee_id services status total createdAt updatedAt");
         
         if(!order) {

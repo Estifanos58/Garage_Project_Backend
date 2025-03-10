@@ -14,10 +14,8 @@ const orderSchema = new mongoose.Schema({
         ref: "User",
     },
     services: [{
-        service_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Service",
-        },
     }],
     status: {
         type: String, // Complete, In progress, Received, pending

@@ -29,9 +29,7 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
         }
 
         // Ensure services are in the correct format (array of objects)
-        const formattedServices = services.map(serviceId => ({
-            service_id: new mongoose.Types.ObjectId(serviceId) // Convert to ObjectId
-        })) 
+        const formattedServices = services.map(serviceId => new mongoose.Types.ObjectId(serviceId)) // Convert to ObjectId) 
 
         // console.log(formattedServices);
 
@@ -44,17 +42,24 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
             total,
         });
 
+        await order.save();
         const servicesCollection = await Service.find(  
             { _id: { $in: services } },  
             'name description' // This specifies the fields to return  
           ); 
-        console.log(servicesCollection);    
+           
+
+        const newOrder = await Order.findById(order._id)
+            .populate("customer_id", "first_name last_name email phone")
+            .populate("vehicle_id", "make model year")
+            .populate("services", "name price description")
+            .select("customer_id vehicle_id services status total createdAt updatedAt");
         
         await Order_received(customer.email, customer.first_name, customer.last_name, servicesCollection, total);
 
-        await order.save();
+   
 
-        return { success: true, message: "Order added successfully.", data: order };
+        return { success: true, message: "Order added successfully.", data: newOrder };
     } catch (error) {
         console.error("Error in addOrder_service:", error);
         return { success: false, message: "Internal Server Error" };
@@ -91,7 +96,7 @@ export const editOrder_service = async (employee_id, order_id) => {
             .populate("customer_id", "first_name last_name email phone")
             .populate("vehicle_id", "make model year")
             .populate("employee_id", "first_name last_name email phone") // Ensure full details are populated
-            .populate("services.service_id", "name price description")
+            .populate("services", "name price description")
             .select("customer_id vehicle_id employee_id services status total createdAt updatedAt");
 
         return {
@@ -111,7 +116,7 @@ export const getAllOrder_service = async () => {
             .populate("customer_id", "first_name last_name email phone")
             .populate("vehicle_id", "make model year")
             .populate("employee_id", "first_name last_name")
-            .populate("services.service_id", "name price description") // Fix: Correct way to populate subdocuments
+            .populate("services", "name price description") // Fix: Correct way to populate subdocuments
             .select("customer_id vehicle_id employee_id services status total createdAt updatedAt");
 
         if (!allOrders || allOrders.length === 0) {
@@ -120,6 +125,8 @@ export const getAllOrder_service = async () => {
                 message: "Orders Not Found"
             };
         }
+
+        console.log(allOrders[0].services);
 
         return { success: true, data: allOrders, message: "All orders fetched successfully." };
     } catch (error) {
@@ -138,26 +145,15 @@ export const deleteOrder_service = async (order_id) => {
             };
         }
 
-        // Ensure that employee_id exists in the order
-        if (!order.employee_id) {
-            return {
-                success: false,
-                message: "Order does not have an associated employee",
-            };
-        }
 
         // Fetch the user using the correct reference type
-        const user = await User.findById(order.employee_id.toString());
-        if (!user) {
-            return {
-                success: false,
-                message: "No User found with the given ID",
-            };
+        if(order.employee_id){
+            const user = await User.findById(order.employee_id.toString());
+            user.occupied = false;
+            await user.save();
         }
 
-        // Update the user's occupied status
-        user.occupied = false;
-        await user.save();
+
 
         // Delete the order
         await Order.findByIdAndDelete(order_id);
