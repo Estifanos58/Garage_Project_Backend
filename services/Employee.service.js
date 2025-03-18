@@ -27,7 +27,7 @@ export const getEmployeeOrders_service = async (userId) => {
             data: orders
         }
     } catch (error) {
-        console.error("Error in getEmployeeOrders_service: ", error);
+        // console.error("Error in getEmployeeOrders_service: ", error);
         return {
             success: false,
             message: "Error happened in getEmployeeOrders_service"
@@ -59,7 +59,7 @@ export const getNewOrder_service = async (userId) => {
             data: order
         }
     } catch (error) {
-        console.error("Error in getNewOrder_service: ", error);
+        // console.error("Error in getNewOrder_service: ", error);
         return {
             success: false,
             message: "Error happened in getNewOrder_service"
@@ -113,7 +113,7 @@ export const getOrderComplete_service = async (userId , orderId, status) => {
         }
 
     } catch (error) {
-        console.error('Error in getOrderComplete_service: ', error);
+        // console.error('Error in getOrderComplete_service: ', error);
         return {
             success: false,
             message: "Error happend in GetOrderComplete_service"

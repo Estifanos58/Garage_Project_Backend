@@ -46,7 +46,7 @@ export const ForgotController = async (req, res) => {
 export const getUserInfo_controller = async (req, res) =>{
     try {
         const email = req.email;
-        console.log("GET USER INFO CONTROLLER", email);
+        // console.log("GET USER INFO CONTROLLER", email);
         if(!email){
             return fieldsNotFilled(res)
         }
@@ -63,7 +63,7 @@ export const getUserInfo_controller = async (req, res) =>{
 export const LoginController = async (req,res) =>{
     try {
         const {email, password} = req.body;
-        console.log("LOGIN CONTROLLER", email, password);
+        // console.log("LOGIN CONTROLLER", email, password);
         if(!email || !password){
             return fieldsNotFilled(res)
         }

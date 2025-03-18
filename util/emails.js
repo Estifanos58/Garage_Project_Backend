@@ -17,10 +17,10 @@ export const sendWelcomeMessage = async (email,password,first_name, role) => {
             category: "Account Verification",
         });
 
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 };
@@ -36,10 +36,10 @@ export const customerWellcome = async (email, first_name, last_name) => {
             html: WELLCOME_CUSTOMER.replace("{website_url}", baseUrl).replace("{first_name}",first_name).replace("{last_name}", last_name),
             category: "Your newly created account"
         })
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 }
@@ -56,10 +56,10 @@ export const ForgotPassword = async (email,first_name, code) => {
             category: "Forgot Password",
         });
 
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 }
@@ -75,10 +75,10 @@ export const sendOrderConfirmation = async (email, name, total) => {
             category: "Order Complete",
         });
 
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 }
@@ -95,10 +95,10 @@ export const EmployeeFired = async (email,name) => {
             category: "Employee Fired",
         });
 
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 }
@@ -114,10 +114,10 @@ export const SendCustomerVehicle = async (email, first_name,last_name, year, mak
             category: "NEW VEHICLE ADDED",
         });
 
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 }
@@ -139,10 +139,10 @@ export const Order_received = async (email,first_name, last_name, orders, cost) 
             category: "Order received",
         });
 
-        console.log("Email sent to the user", response);
+        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
-        console.error("Error occurred:", error);
+        // console.error("Error occurred:", error);
         throw error;  // ✅ Let the calling function handle the error
     }
 }

@@ -61,7 +61,7 @@ export const addOrder_service = async (userId, customer_id, vehicle_id, services
 
         return { success: true, message: "Order added successfully.", data: newOrder };
     } catch (error) {
-        console.error("Error in addOrder_service:", error);
+        // console.error("Error in addOrder_service:", error);
         return { success: false, message: "Internal Server Error" };
     }
 };
@@ -105,7 +105,7 @@ export const editOrder_service = async (employee_id, order_id) => {
             data: order
         };
     } catch (error) {
-        console.error("Error in editOrder_service:", error);
+        // console.error("Error in editOrder_service:", error);
         return { success: false, message: "Internal Server Error" };
     }
 };
@@ -126,11 +126,11 @@ export const getAllOrder_service = async () => {
             };
         }
 
-        console.log(allOrders[0].services);
+        // console.log(allOrders[0].services);
 
         return { success: true, data: allOrders, message: "All orders fetched successfully." };
     } catch (error) {
-        console.error("GETTING_SERVICE ERROR:", error);
+        // console.error("GETTING_SERVICE ERROR:", error);
         return { success: false, message: "Internal Server Error" };
     }
 };
@@ -163,7 +163,7 @@ export const deleteOrder_service = async (order_id) => {
             message: "Order deleted successfully",
         };
     } catch (error) {
-        console.error("deleteOrder_Service Error:", error);
+        // console.error("deleteOrder_Service Error:", error);
         return { success: false, message: "Internal Server Error" };
     }
 };

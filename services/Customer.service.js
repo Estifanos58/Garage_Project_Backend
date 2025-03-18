@@ -35,7 +35,7 @@ export const addCustomer_service = async (email,first_name,last_name,phone) => {
 
 export const editCustomer_service = async (id,email,first_name,last_name,phone, status) => {
     try {
-        console.log("USER STATUS: ", status)
+        // console.log("USER STATUS: ", status)
         const user = await Customer.findById(id);
         if(!user){
             return {

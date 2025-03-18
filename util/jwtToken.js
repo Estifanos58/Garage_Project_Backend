@@ -11,7 +11,7 @@ export const generateJwtToken = (res, userId, role, email) => {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         path: "/",
     });
-    console.log("Token Sent")
+    // console.log("Token Sent")
 
    //  res.json({ success: true, token: jwtToken }); // Also return the token as a response for debugging
 };

@@ -21,7 +21,7 @@ export const AddEmployeeService = async (first_name,last_name,email,phone,role)=
             //         message: "Error while sending message please Check you Email again"
             //     }
             // }
-            console.log("RESPONSE: ", response);
+            // console.log("RESPONSE: ", response);
 
             const user = new User({
                 first_name,
@@ -100,7 +100,7 @@ export const deleteEmployee_service = async (id) =>{
                 message: "User not found"
             }
             const order = await Order.findOne({employee_id: id, status: { $in: ["In progress"] }});
-            console.log("ORDER: ", order);
+            // console.log("ORDER: ", order);
             if(order) {
                 return {
                     success: false,
