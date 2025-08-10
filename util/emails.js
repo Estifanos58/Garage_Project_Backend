@@ -1,15 +1,32 @@
-// import { transport } from "../config/mailtrap.config.js";
 import { transport, sender } from "../config/mail.config.js";
 
-// import { sender } from "../config/mailtrap.config.js";
 import { WELCOME_MESSAGE, WELLCOME_CUSTOMER, FORGOT_PASSWORD, ORDER_CONFIRMATION, EMPLOYEE_FIRED, CUSTOMER_VEHICLE, ORDER_TEMPLATE } from "../config/mailtrap.template.js";
+
+// In production we skip actually sending emails (Google OAuth2.0 refresh token maintenance is too heavy)
+// Instead we log & return a lightweight object so upstream code continues to work without throwing.
+const isProduction = process.env.NODE_ENV === 'production';
+const sendOrSkip = async (payload) => {
+    if (isProduction) {
+        const { to, subject } = payload;
+        const info = {
+            skipped: true,
+            reason: 'Production mode: Maintaining Google OAuth2.0 Refresh token is too much. Email not sent.',
+            to,
+            subject,
+        };
+        // Minimal log (can switch to a logger if available)
+        console.log(`[EMAIL SKIPPED] subject="${subject}" to=${Array.isArray(to) ? to.join(',') : to}`);
+        return info;
+    }
+    return transport.sendMail(payload);
+};
 
 
 
 export const sendWelcomeMessage = async (email,password,first_name, role) => {
     const recipients = [email];
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "Welcome to Abe Garage",
@@ -17,7 +34,6 @@ export const sendWelcomeMessage = async (email,password,first_name, role) => {
             category: "Account Verification",
         });
 
-        // console.log("Email sent to the user", response);
         return response;  // ✅ Ensure you return the response
     } catch (error) {
         // console.error("Error occurred:", error);
@@ -29,7 +45,7 @@ export const customerWellcome = async (email, first_name, last_name) => {
     const recipients = [email];
     const baseUrl = process.env.CLIENT_URL;
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "Welcome to Abe Garage",
@@ -48,7 +64,7 @@ export const ForgotPassword = async (email,first_name, code) => {
     const recipients = [email];
     const hash = `${process.env.CLIENT_URL}/reset-password/${code}`;
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "Forgot Password",
@@ -67,7 +83,7 @@ export const ForgotPassword = async (email,first_name, code) => {
 export const sendOrderConfirmation = async (email, name, total) => {
     const recipients = [email];
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "Order Complete",
@@ -87,7 +103,7 @@ export const EmployeeFired = async (email,name) => {
     const recipients = [email];
     const date = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "You have been fired",
@@ -106,7 +122,7 @@ export const EmployeeFired = async (email,name) => {
 export const SendCustomerVehicle = async (email, first_name,last_name, year, make, model, type, mileage, tag, serial_number, color) => {
     const recipients = [email];
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "A NEW VEHICLE IS ADDED",
@@ -131,7 +147,7 @@ export const Order_received = async (email,first_name, last_name, orders, cost) 
         </div>
     `).join("\n");
     try {
-        const response = await transport.sendMail({
+        const response = await sendOrSkip({
             from: sender,
             to: recipients,
             subject: "You Order",
